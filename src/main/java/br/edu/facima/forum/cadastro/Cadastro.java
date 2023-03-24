@@ -3,8 +3,12 @@ package br.edu.facima.forum.cadastro;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @JsonPropertyOrder({"nome", "email", "matricula", "contato"})
-public class Cadastro {
+public class Cadastro implements Serializable {
+    @Serial private static final long serialVersionUID = 1L;
 
     private String nome;
     private String email;
