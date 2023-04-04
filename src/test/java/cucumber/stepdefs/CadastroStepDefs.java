@@ -57,7 +57,7 @@ public class CadastroStepDefs extends StepDefs{
                 .content(cadastroJson);
 
         resultadoDoCadastro = mockMvc.perform(requestParaEnviarCadastro)
-//                .andDo(print())  // Descomentar essa linha se quiser que printe o request e o response
+                .andDo(print())  // Descomentar essa linha se quiser que printe o request e o response
                 .andReturn();
 
     }
