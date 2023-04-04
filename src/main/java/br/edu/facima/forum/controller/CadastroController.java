@@ -1,22 +1,21 @@
 package br.edu.facima.forum.controller;
 
-import br.edu.facima.forum.cadastro.Cadastro;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import br.edu.facima.forum.model.Usuario;
+import br.edu.facima.forum.services.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/cadastrar")
 public class CadastroController {
 
-    @GetMapping
-    @ResponseBody
-    public String getOk(){
-        return "Ok";
+    private final UsuarioService usuarioService;
+
+    public CadastroController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     @PostMapping
-    public ResponseEntity<Cadastro> salvar(Cadastro cadastro){
-        return ResponseEntity.status(HttpStatus.OK).body(cadastro);
+    public void cadastrar(@RequestBody Usuario usuario){
+        usuarioService.cadastrar(usuario);
     }
 }

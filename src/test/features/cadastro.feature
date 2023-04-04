@@ -6,5 +6,5 @@ Funcionalidade: Cadastrar
     E o numero da matricula sendo 12345678911
     E o contato 82912345678
     Quando os dados forem submetidos
-    Entao o cadastro foi realizado com sucesso
+    Entao o aluno deveria ter sido cadastrado com sucesso
 

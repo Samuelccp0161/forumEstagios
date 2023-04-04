@@ -1,4 +1,4 @@
-import { CadastroComponent } from './cadastro/cadastro.component';
+import { CadastroComponent } from './usuario/usuario.component';
 import { Component } from '@angular/core';
 
 @Component({
