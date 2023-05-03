@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @JsonPropertyOrder({"nome", "email", "matricula", "contato"})
@@ -27,6 +28,8 @@ public class Usuario implements Serializable {
     @Column(nullable = false)
     private Long contato;
 
+    @Column(length = 25, nullable = false)
+    private String senha;
 
     public String getNome() {
         return nome;
@@ -51,6 +54,12 @@ public class Usuario implements Serializable {
     public void setMatricula(Long matricula) {
         this.matricula = matricula;
     }
+    public void setSenha(String senha){
+        this.senha = senha;
+    }
+    public String getSenha() {
+        return senha;
+    }
 
     public Long getContato() {
         return contato;
@@ -58,5 +67,13 @@ public class Usuario implements Serializable {
 
     public void setContato(Long contato) {
         this.contato = contato;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(email, usuario.email);
     }
 }

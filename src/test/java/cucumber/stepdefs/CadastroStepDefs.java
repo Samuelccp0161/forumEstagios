@@ -2,6 +2,8 @@ package cucumber.stepdefs;
 
 import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.repository.UsuarioRepository;
+import br.edu.facima.forum.services.UsuarioServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import io.cucumber.java.es.Dado;
@@ -44,6 +46,10 @@ public class CadastroStepDefs extends StepDefs{
         usuario.setContato(contato);
     }
 
+    @Dado("a senha {string}")
+    public void criando_senha(String senha){
+        usuario.setSenha(senha);
+    }
     @Quando("os dados forem submetidos")
     public void os_dados_forem_submetidos() throws Exception {
         String cadastroJson = jsonWriter.writeValueAsString(usuario);
@@ -59,7 +65,7 @@ public class CadastroStepDefs extends StepDefs{
     }
 
     @Entao("o aluno deveria ter sido cadastrado com sucesso")
-    public void oAlunoDeveriaTerSidoCadastradoComSucesso() {
+    public void oAlunoDeveriaTerSidoCadastradoComSucesso() throws JsonProcessingException {
         Usuario usuarioConsultado = usuarioRepository.findByEmail(usuario.getEmail()).orElseThrow();
         assertThat(usuarioConsultado).isEqualTo(usuario);
     }
