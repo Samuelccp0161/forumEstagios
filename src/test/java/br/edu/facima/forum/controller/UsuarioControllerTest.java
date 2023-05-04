@@ -13,13 +13,13 @@ import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class CadastroControllerTest {
+class UsuarioControllerTest {
 
     @Mock
     private UsuarioService usuarioService;
 
     @InjectMocks
-    private CadastroController cadastroController;
+    private UsuarioController usuarioController;
 
     @Nested
     class AoCadastrar {
@@ -27,7 +27,7 @@ class CadastroControllerTest {
         public void delegarOCadastroParaOService() {
             Usuario usuario = new Usuario();
 
-            cadastroController.cadastrar(usuario);
+            usuarioController.cadastrar(usuario);
 
             verify(usuarioService).cadastrar(same(usuario));
         }

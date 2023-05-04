@@ -9,12 +9,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@JsonPropertyOrder({"nome", "email", "matricula", "contato"})
+@JsonPropertyOrder({"nome", "email", "matricula", "contato", "senha"})
 public class Usuario implements Serializable {
     @Serial private static final long serialVersionUID = 1L;
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column(length = 100, nullable = false)
     private String nome;
@@ -74,6 +74,18 @@ public class Usuario implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(email, usuario.email);
+        return nome.equals(usuario.nome) && email.equals(usuario.email) && matricula.equals(usuario.matricula) && contato.equals(usuario.contato) && senha.equals(usuario.senha);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", matricula=" + matricula +
+                ", contato=" + contato +
+                ", senha='" + senha + '\'' +
+                '}';
     }
 }

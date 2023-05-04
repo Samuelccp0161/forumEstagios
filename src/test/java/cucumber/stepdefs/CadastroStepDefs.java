@@ -19,30 +19,29 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-public class CadastroStepDefs extends StepDefs{
+public class CadastroStepDefs extends StepDefs {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    private final ObjectWriter jsonWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
     Usuario usuario = new Usuario();
 
     @Dado("o nome {string}")
-    public void testNome(String nome){
+    public void adicionando_um_nome(String nome){
         usuario.setNome(nome);
     }
 
     @Dado("o email {string}")
-    public void o_email(String email) {
+    public void adicionando_o_email(String email) {
         usuario.setEmail(email);
     }
 
     @Dado("o numero da matricula sendo {long}")
-    public void o_ra_sendo(long matricula) {
+    public void adicionando_o_ra(long matricula) {
         usuario.setMatricula(matricula);
     }
 
     @Dado("o contato {long}")
-    public void o_contato(Long contato) {
+    public void adicionando_o_contato(Long contato) {
         usuario.setContato(contato);
     }
 
@@ -52,7 +51,7 @@ public class CadastroStepDefs extends StepDefs{
     }
     @Quando("os dados forem submetidos")
     public void os_dados_forem_submetidos() throws Exception {
-        String cadastroJson = jsonWriter.writeValueAsString(usuario);
+        String cadastroJson = converterObjetoEmJson(usuario);
 
         var requestParaEnviarCadastro = post("/api/cadastrar")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -67,6 +66,7 @@ public class CadastroStepDefs extends StepDefs{
     @Entao("o aluno deveria ter sido cadastrado com sucesso")
     public void oAlunoDeveriaTerSidoCadastradoComSucesso() throws JsonProcessingException {
         Usuario usuarioConsultado = usuarioRepository.findByEmail(usuario.getEmail()).orElseThrow();
+        System.out.println(usuarioConsultado);
         assertThat(usuarioConsultado).isEqualTo(usuario);
     }
 }

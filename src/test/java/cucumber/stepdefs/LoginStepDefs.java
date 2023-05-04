@@ -1,47 +1,67 @@
 package cucumber.stepdefs;
 
-import br.edu.facima.forum.controller.CadastroController;
+import br.edu.facima.forum.controller.UsuarioController;
 import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.repository.UsuarioRepository;
 import br.edu.facima.forum.services.UsuarioService;
-import br.edu.facima.forum.services.UsuarioServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.java.es.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class LoginStepDefs {
+public class LoginStepDefs extends StepDefs{
 
-    @Mock
-    UsuarioService usuarioService;
+    public static final String EMAIL = "juleima@gmail.com";
+    public static final String SENHA = "experimento626";
+
+    @Autowired
+    UsuarioController cadastro;
     @Autowired
     UsuarioRepository repository;
-    @Autowired
-    CadastroController cadastro = new CadastroController(usuarioService);
     Usuario usuario;
 
     @Dado("um usuario já cadastrado")
     public void um_usuario_ja_cadastrado() {
         usuario = new Usuario();
         usuario.setNome("Maria");
-        usuario.setSenha("experimento326");
+        usuario.setSenha(SENHA);
         usuario.setContato(88888888888L);
-        usuario.setEmail("juleima@gmail.com");
+        usuario.setEmail(EMAIL);
         usuario.setMatricula(12345678912L);
 
         cadastro.cadastrar(usuario);
     }
+
+    MvcResult resultadoDaRequisicao;
+
     @Quando("o mesmo tentar logar com os dados corretos")
-    public void o_mesmo_tentar_logar_com_os_dados_corretos() {
-        assertThat("Maria").isEqualTo(usuario.getNome());
-        assertThat("experimento326").isEqualTo(usuario.getSenha());
+    public void o_mesmo_tentar_logar_com_os_dados_corretos() throws Exception {
+        String loginJson = converterObjetoEmJson(usuario);
+
+        var requestParaLogar = post("/api/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(loginJson);
+
+        resultadoDaRequisicao = mockMvc.perform(requestParaLogar)
+                .andDo(print())  // Descomentar essa linha se quiser que printe o request e o response
+                .andReturn();
+
+        if (repository.findByEmail(usuario.getEmail()).orElseThrow().toString().equals(loginJson)){
+            resultadoDaRequisicao.getResponse().setStatus(200);
+        }
     }
+
     @Entao("o usuario deveria ter sido logado com sucesso")
     public void o_usuario_deveria_ter_sido_logado_com_sucesso() {
-        assertThat(usuario).isEqualTo(repository.findByEmail(usuario.getEmail()).orElseThrow());
+        assertThat(resultadoDaRequisicao.getResponse().getStatus()).isEqualTo(200);
     }
 }
