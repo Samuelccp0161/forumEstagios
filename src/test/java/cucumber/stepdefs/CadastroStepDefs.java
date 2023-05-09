@@ -35,11 +35,6 @@ public class CadastroStepDefs extends StepDefs {
         usuario.setEmail(email);
     }
 
-    @Dado("o numero da matricula sendo {long}")
-    public void adicionando_o_ra(long matricula) {
-        usuario.setMatricula(matricula);
-    }
-
     @Dado("o contato {long}")
     public void adicionando_o_contato(Long contato) {
         usuario.setContato(contato);

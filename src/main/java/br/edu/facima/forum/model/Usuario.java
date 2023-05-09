@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@JsonPropertyOrder({"nome", "email", "matricula", "contato", "senha"})
+@JsonPropertyOrder({"nome", "email", "contato", "senha"})
 public class Usuario implements Serializable {
     @Serial private static final long serialVersionUID = 1L;
 
@@ -21,9 +21,6 @@ public class Usuario implements Serializable {
 
     @Column(length = 100, nullable = false)
     private String email;
-
-    @Column(nullable = false)
-    private Long matricula;
 
     @Column(nullable = false)
     private Long contato;
@@ -47,13 +44,6 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public Long getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(Long matricula) {
-        this.matricula = matricula;
-    }
     public void setSenha(String senha){
         this.senha = senha;
     }
@@ -74,7 +64,7 @@ public class Usuario implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return nome.equals(usuario.nome) && email.equals(usuario.email) && matricula.equals(usuario.matricula) && contato.equals(usuario.contato) && senha.equals(usuario.senha);
+        return nome.equals(usuario.nome) && email.equals(usuario.email) && contato.equals(usuario.contato) && senha.equals(usuario.senha);
     }
 
     @Override
@@ -83,7 +73,6 @@ public class Usuario implements Serializable {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
-                ", matricula=" + matricula +
                 ", contato=" + contato +
                 ", senha='" + senha + '\'' +
                 '}';

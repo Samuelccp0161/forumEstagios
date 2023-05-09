@@ -37,7 +37,6 @@ public class LoginStepDefs extends StepDefs{
         usuario.setSenha(SENHA);
         usuario.setContato(88888888888L);
         usuario.setEmail(EMAIL);
-        usuario.setMatricula(12345678912L);
 
         cadastrarUsuario(usuario);
     }
