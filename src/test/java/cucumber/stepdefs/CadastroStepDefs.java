@@ -49,6 +49,7 @@ public class CadastroStepDefs extends StepDefs {
     public void criando_senha(String senha){
         usuario.setSenha(senha);
     }
+
     @Quando("os dados forem submetidos")
     public void os_dados_forem_submetidos() throws Exception {
         String cadastroJson = converterObjetoEmJson(usuario);

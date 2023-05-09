@@ -10,6 +10,7 @@ import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -23,14 +24,14 @@ public class LoginStepDefs extends StepDefs{
     public static final String EMAIL = "juleima@gmail.com";
     public static final String SENHA = "experimento626";
 
-    @Autowired
-    UsuarioController cadastro;
-    @Autowired
-    UsuarioRepository repository;
+//    @Autowired
+//    UsuarioController cadastro;
+//    @Autowired
+//    UsuarioRepository repository;
     Usuario usuario;
 
     @Dado("um usuario já cadastrado")
-    public void um_usuario_ja_cadastrado() {
+    public void um_usuario_ja_cadastrado() throws Exception {
         usuario = new Usuario();
         usuario.setNome("Maria");
         usuario.setSenha(SENHA);
@@ -38,7 +39,19 @@ public class LoginStepDefs extends StepDefs{
         usuario.setEmail(EMAIL);
         usuario.setMatricula(12345678912L);
 
-        cadastro.cadastrar(usuario);
+        cadastrarUsuario(usuario);
+    }
+
+    private void cadastrarUsuario(Usuario usuario) throws Exception {
+        String cadastroJson = converterObjetoEmJson(usuario);
+
+        var requestParaEnviarCadastro = post("/api/cadastrar")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(cadastroJson);
+
+        mockMvc.perform(requestParaEnviarCadastro)
+                .andDo(print())  // Descomentar essa linha se quiser que printe o request e o response
+                .andExpect(status().isOk());
     }
 
     MvcResult resultadoDaRequisicao;
@@ -55,13 +68,15 @@ public class LoginStepDefs extends StepDefs{
                 .andDo(print())  // Descomentar essa linha se quiser que printe o request e o response
                 .andReturn();
 
-        if (repository.findByEmail(usuario.getEmail()).orElseThrow().toString().equals(loginJson)){
-            resultadoDaRequisicao.getResponse().setStatus(200);
-        }
+//        if (repository.findByEmail(usuario.getEmail()).orElseThrow().toString().equals(loginJson)){
+//            resultadoDaRequisicao.getResponse().setStatus(200);
+//        }
+
     }
 
     @Entao("o usuario deveria ter sido logado com sucesso")
     public void o_usuario_deveria_ter_sido_logado_com_sucesso() {
-        assertThat(resultadoDaRequisicao.getResponse().getStatus()).isEqualTo(200);
+        int statusResposta = resultadoDaRequisicao.getResponse().getStatus();
+        assertThat(statusResposta).isEqualTo(HttpStatus.OK.value());
     }
 }
