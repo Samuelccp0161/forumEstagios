@@ -1,33 +1,30 @@
 package br.edu.facima.forum.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 
-@JsonPropertyOrder({"nome", "telefone", "endereco", "descricao"})
-public class PublicarAnimal {
+import java.io.Serial;
+import java.io.Serializable;
+
+@Entity
+@JsonPropertyOrder({"nome", "telefone", "descricao"})
+public class Animal implements Serializable {
+    @Serial private static final long serialVersionUID = 1L;
+
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(length = 150, nullable = false)
     private String nome;
 
     @Column(nullable = false)
-    private Long telefone;
-
-    @Column(nullable = false)
-    private String endereco;
+    private String telefone;
 
     @Column(nullable = false)
     private String descricao;
 
-    public void setTelefone(Long telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
     }
 
     public String getDescricao() {
@@ -45,10 +42,7 @@ public class PublicarAnimal {
         return nome;
     }
 
-    public void setTelefone(long telefone) {
-        this.telefone = telefone;
-    }
-    public Long getTelefone(){
+    public String getTelefone(){
         return telefone;
     }
 

@@ -5,7 +5,7 @@ import br.edu.facima.forum.services.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-//@RequestMapping("/api/cadastrar")
+@RequestMapping("/api")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -14,11 +14,11 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @PostMapping("/api/cadastrar")
+    @PostMapping("cadastrar")
     public void cadastrar(@RequestBody Usuario usuario){
         usuarioService.cadastrar(usuario);
     }
-    @PostMapping("/api/login")
+    @PostMapping("login")
     public void logar(String email, String senha){
         usuarioService.logar(email,senha);
     }

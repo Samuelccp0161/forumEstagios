@@ -1,59 +1,59 @@
 package cucumber.stepdefs;
 
-import br.edu.facima.forum.model.PublicarAnimal;
+import br.edu.facima.forum.model.Animal;
 import io.cucumber.java.pt.Dado;
+import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.multipart.support.RequestPartServletServerHttpRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@AutoConfigureMockMvc
 public class PublicarAnimalStepDefs extends StepDefs{
-    PublicarAnimal publicar = new PublicarAnimal();
 
-    @Dado("o nome (S*)")
+    Animal animal = new Animal();
+
+    @Dado("o nome do animal {string}")
     public void dado_o_nome_do_animal(String nome) {
-        publicar.setNome("sr puffins");
-        assertThat(nome).isEqualTo(publicar.getNome());
+        animal.setNome("sr puffins");
     }
-    @Dado("o telefone {long}")
-    public void dado_o_telefone(Long telefone) {
-        publicar.setTelefone(82912345678L);
 
-        assertThat(telefone).isEqualTo(publicar.getTelefone());
-    }
-    @Dado("o endereço {string}")
-    public void dado_o_endereco(String endereco) {
-        publicar.setEndereco("cachoeirinha");
-
-        assertThat(endereco).isEqualTo(publicar.getEndereco());
+    @Dado("o telefone para contato {string}")
+    public void dado_o_telefone(String telefone) {
+        animal.setTelefone("82912345678");
     }
 
     @Dado("a descrição do pet sendo {string}")
     public void dado_a_descricao_do_pet(String descricao) {
-        publicar.setDescricao("pequeno filhote a procura de um lar");
-
-        assertThat(descricao).isEqualTo(publicar.getDescricao());
+        animal.setDescricao("pequeno filhote a procura de um lar");
     }
+
+
+    private MvcResult resultadoDaRequisicao;
+
     @Quando("os dados forem submetidos corretamente")
     public void tendo_os_dados_submetidos_corretamente() throws Exception {
-        String publicacaoJson = converterObjetoEmJson(publicar);
+        String publicacaoJson = converterObjetoEmJson(animal);
 
         var requestDaPublicacao = MockMvcRequestBuilders.post("/api/publicar")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(publicacaoJson);
 
-        mockMvc.perform(requestDaPublicacao)
-                .andExpect(status().isOk());
+        resultadoDaRequisicao = mockMvc.perform(requestDaPublicacao)
+//                .andExpect(status().isOk());
+                .andReturn();
     }
-    @Entao("publique o pet para adocao")
+
+    @Entao("o animal deveria ter sido publicado")
     public void publique_o_pet_para_adocao() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        int status = resultadoDaRequisicao.getResponse().getStatus();
+
+        assertThat(status).isEqualTo(HttpStatus.OK.value());
     }
 }

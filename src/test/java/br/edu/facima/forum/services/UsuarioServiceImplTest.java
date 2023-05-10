@@ -1,16 +1,13 @@
 package br.edu.facima.forum.services;
 
-import br.edu.facima.forum.controller.UsuarioController;
 import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.repository.UsuarioRepository;
-import org.junit.Ignore;
-import org.junit.jupiter.api.Disabled;
+import br.edu.facima.forum.services.impl.UsuarioServiceImpl;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;

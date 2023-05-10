@@ -32,4 +32,14 @@ class UsuarioControllerTest {
             verify(usuarioService).cadastrar(same(usuario));
         }
     }
+    @Nested
+    class AoLogar {
+        @Test
+        public void delegarOLoginParaOService(){
+
+            usuarioController.logar("Kdash@gmail.com", "669");
+
+            verify(usuarioService).logar("Kdash@gmail.com", "669");
+        }
+    }
 }

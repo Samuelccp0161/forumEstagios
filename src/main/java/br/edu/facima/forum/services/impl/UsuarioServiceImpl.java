@@ -1,8 +1,8 @@
-package br.edu.facima.forum.services;
+package br.edu.facima.forum.services.impl;
 
-import br.edu.facima.forum.model.PublicarAnimal;
 import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.repository.UsuarioRepository;
+import br.edu.facima.forum.services.UsuarioService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

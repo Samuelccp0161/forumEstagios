@@ -1,6 +1,5 @@
 package br.edu.facima.forum.services;
 
-import br.edu.facima.forum.model.PublicarAnimal;
 import br.edu.facima.forum.model.Usuario;
 
 import java.util.Optional;
