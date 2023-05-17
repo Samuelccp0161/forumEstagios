@@ -1,11 +1,12 @@
 package br.edu.facima.forum.controller;
 
+import br.edu.facima.forum.exceptions.UsuarioJaExistenteException;
 import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.services.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/usuario")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -15,7 +16,7 @@ public class UsuarioController {
     }
 
     @PostMapping("cadastrar")
-    public void cadastrar(@RequestBody Usuario usuario){
+    public void cadastrar(@RequestBody Usuario usuario) throws UsuarioJaExistenteException {
         usuarioService.cadastrar(usuario);
     }
     @PostMapping("login")

@@ -33,4 +33,11 @@ class AnimalServiceImplTest {
             verify(animalRepository).save(animal);
         }
     }
+    @Nested
+    class AoListar{
+        @Test
+        public void DeveriaListarOsAnimais(){
+
+        }
+    }
 }

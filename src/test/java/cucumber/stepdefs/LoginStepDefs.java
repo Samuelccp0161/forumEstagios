@@ -44,7 +44,7 @@ public class LoginStepDefs extends StepDefs{
     private void cadastrarUsuario(Usuario usuario) throws Exception {
         String cadastroJson = converterObjetoEmJson(usuario);
 
-        var requestParaEnviarCadastro = post("/api/cadastrar")
+        var requestParaEnviarCadastro = post("/api/usuario/cadastrar")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(cadastroJson);
 
@@ -59,7 +59,7 @@ public class LoginStepDefs extends StepDefs{
     public void o_mesmo_tentar_logar_com_os_dados_corretos() throws Exception {
         String loginJson = converterObjetoEmJson(usuario);
 
-        var requestParaLogar = post("/api/login")
+        var requestParaLogar = post("/api/usuario/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(loginJson);
 

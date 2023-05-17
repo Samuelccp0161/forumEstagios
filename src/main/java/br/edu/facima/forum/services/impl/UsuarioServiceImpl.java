@@ -1,5 +1,6 @@
 package br.edu.facima.forum.services.impl;
 
+import br.edu.facima.forum.exceptions.UsuarioJaExistenteException;
 import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.repository.UsuarioRepository;
 import br.edu.facima.forum.services.UsuarioService;
@@ -18,7 +19,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void cadastrar(Usuario usuario) {
+    public void cadastrar(Usuario usuario){
+        Optional<Usuario> usuarioConsultado = usuarioRepository.findByEmail(usuario.getEmail());
+        if (usuarioConsultado.isPresent()){
+            throw new UsuarioJaExistenteException("Usuario já existe");
+        }
         usuarioRepository.save(usuario);
     }
 

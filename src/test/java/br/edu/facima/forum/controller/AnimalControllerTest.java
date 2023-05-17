@@ -9,8 +9,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class AnimalControllerTest {
@@ -28,6 +33,28 @@ public class AnimalControllerTest {
             animalController.publicar(animal);
 
             verify(animalService).publicar(same(animal));
+        }
+    }
+    @Nested
+    class AoListar{
+        @Test
+        public void delegarListarParaOService(){
+
+            animalController.listar();
+
+            verify(animalService).listar();
+        }
+        @Test
+        public void deveriaRetornarOsAnimais(){
+            List<Animal> animaisEsperados = new ArrayList<>();
+            animaisEsperados.add(null);
+
+            when(animalService.listar()).thenReturn(animaisEsperados);
+
+            List<Animal> animais = animalController.listar();
+
+            assertThat(animais).isEqualTo(animaisEsperados);
+
         }
     }
 }

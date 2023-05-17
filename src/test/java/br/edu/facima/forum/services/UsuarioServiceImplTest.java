@@ -1,5 +1,6 @@
 package br.edu.facima.forum.services;
 
+import br.edu.facima.forum.exceptions.UsuarioJaExistenteException;
 import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.repository.UsuarioRepository;
 import br.edu.facima.forum.services.impl.UsuarioServiceImpl;
@@ -12,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -40,7 +41,14 @@ class UsuarioServiceImplTest {
 
         @Test
         void comUsuarioJaExistenteDeveriaLancarExcecao() {
+            Usuario usuario = new Usuario();
+            usuario.setEmail("g@gmail.com");
 
+            when(usuarioRepository.findByEmail("g@gmail.com")).thenReturn(Optional.of(usuario));
+
+            assertThatThrownBy(() -> usuarioService.cadastrar(usuario))
+                    .isInstanceOf(UsuarioJaExistenteException.class)
+                    .hasMessage("Usuario já existe");
         }
     }
     @Nested

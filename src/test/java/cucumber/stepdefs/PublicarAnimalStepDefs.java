@@ -41,7 +41,7 @@ public class PublicarAnimalStepDefs extends StepDefs{
     public void tendo_os_dados_submetidos_corretamente() throws Exception {
         String publicacaoJson = converterObjetoEmJson(animal);
 
-        var requestDaPublicacao = MockMvcRequestBuilders.post("/api/publicar")
+        var requestDaPublicacao = MockMvcRequestBuilders.post("/api/animais/publicar")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(publicacaoJson);
 

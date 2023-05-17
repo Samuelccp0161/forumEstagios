@@ -23,6 +23,14 @@ public class Animal implements Serializable {
     @Column(nullable = false)
     private String descricao;
 
+    public Animal() {}
+
+    public Animal(String nome, String telefone, String descricao) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.descricao = descricao;
+    }
+
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }

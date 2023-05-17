@@ -48,7 +48,7 @@ public class CadastroStepDefs extends StepDefs {
     public void os_dados_forem_submetidos() throws Exception {
         String cadastroJson = converterObjetoEmJson(usuario);
 
-        var requestParaEnviarCadastro = post("/api/cadastrar")
+        var requestParaEnviarCadastro = post("/api/usuario/cadastrar")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(cadastroJson);
 

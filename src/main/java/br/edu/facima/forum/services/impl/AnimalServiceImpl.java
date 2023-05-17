@@ -5,6 +5,8 @@ import br.edu.facima.forum.repository.AnimalRepository;
 import br.edu.facima.forum.services.AnimalService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AnimalServiceImpl implements AnimalService {
     private final AnimalRepository animalRepository;
@@ -16,5 +18,10 @@ public class AnimalServiceImpl implements AnimalService {
     @Override
     public void publicar(Animal animal) {
         animalRepository.save(animal);
+    }
+
+    @Override
+    public List<Animal> listar() {
+        return null;
     }
 }

@@ -1,5 +1,6 @@
 package br.edu.facima.forum.controller;
 
+import br.edu.facima.forum.exceptions.UsuarioJaExistenteException;
 import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.services.UsuarioService;
 import org.junit.jupiter.api.Nested;
@@ -24,7 +25,7 @@ class UsuarioControllerTest {
     @Nested
     class AoCadastrar {
         @Test
-        public void delegarOCadastroParaOService() {
+        public void delegarOCadastroParaOService() throws UsuarioJaExistenteException {
             Usuario usuario = new Usuario();
 
             usuarioController.cadastrar(usuario);
