@@ -50,10 +50,14 @@ public class ListarAnimais extends StepDefs{
     }
     @Entao("Todos os animais deverão ser retornados")
     public void todosOsAnimaisDeveraoSerRetornados() throws UnsupportedEncodingException {
-        String resultado = "\"gato {" +
-                "nome: Fran," +
-                "telefone: 000" +
-                "descricao: }\"";
+        String resultado = "[{\"nome\":\"Fran\"," +
+                "\"telefone\":\"829886645\"," +
+                "\"descricao\":\"Muito Birrenta\"}" +
+                ",{" +
+                "\"nome\":\"Bart\"," +
+                "\"telefone\":\"666666666\"," +
+                "\"descricao\":\"Doido\"" +
+                "}]";
 
         assertEquals(resultado, resultadoDaRequisicao.getResponse().getContentAsString());
     }
