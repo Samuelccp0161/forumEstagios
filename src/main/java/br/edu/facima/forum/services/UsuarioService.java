@@ -13,5 +13,4 @@ public interface UsuarioService {
 
     Optional<Usuario> getUsuarioLogado();
 
-    void comentar(String comentario);
 }

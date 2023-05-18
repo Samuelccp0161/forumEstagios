@@ -24,7 +24,4 @@ public class UsuarioController {
         usuarioService.logar(email,senha);
     }
 
-    public void comentar(String comentario) {
-        usuarioService.comentar(comentario);
-    }
 }

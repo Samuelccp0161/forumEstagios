@@ -1,6 +1,7 @@
 package br.edu.facima.forum.services.impl;
 
 import br.edu.facima.forum.model.Animal;
+import br.edu.facima.forum.model.Comentario;
 import br.edu.facima.forum.repository.AnimalRepository;
 import br.edu.facima.forum.services.AnimalService;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,10 @@ public class AnimalServiceImpl implements AnimalService {
     @Override
     public List<Animal> listar() {
         return animais;
+    }
+
+    @Override
+    public List<Comentario> comentarios() {
+        return null;
     }
 }

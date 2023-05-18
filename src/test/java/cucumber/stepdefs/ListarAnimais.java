@@ -1,16 +1,13 @@
 package cucumber.stepdefs;
 
 import br.edu.facima.forum.model.Animal;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -50,7 +47,8 @@ public class ListarAnimais extends StepDefs{
     }
     @Entao("Todos os animais deverão ser retornados")
     public void todosOsAnimaisDeveraoSerRetornados() throws UnsupportedEncodingException {
-        String resultado = "[{\"nome\":\"Fran\"," +
+        String resultado = "[{\"nome\":\"frajola\",\"telefone\":\"333\",\"descricao\":\"Alto\"}," +
+                "{\"nome\":\"Fran\"," +
                 "\"telefone\":\"829886645\"," +
                 "\"descricao\":\"Muito Birrenta\"}" +
                 ",{" +

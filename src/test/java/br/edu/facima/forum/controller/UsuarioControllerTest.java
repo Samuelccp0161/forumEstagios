@@ -43,15 +43,4 @@ class UsuarioControllerTest {
             verify(usuarioService).logar("Kdash@gmail.com", "669");
         }
     }
-    @Nested
-    class AoComentar {
-        @Test
-        public void delegarComentarioParaOService(){
-            String comentario = "Tão pequenino (¨!!¨)";
-
-            usuarioController.comentar(comentario);
-
-            verify(usuarioService).comentar(same(comentario));
-        }
-    }
 }

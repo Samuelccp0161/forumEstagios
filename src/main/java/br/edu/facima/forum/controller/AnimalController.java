@@ -1,6 +1,7 @@
 package br.edu.facima.forum.controller;
 
 import br.edu.facima.forum.model.Animal;
+import br.edu.facima.forum.model.Comentario;
 import br.edu.facima.forum.services.AnimalService;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,5 +24,9 @@ public class AnimalController {
     @GetMapping
     public List<Animal> listar() {
         return animalService.listar();
+    }
+
+    public List<Comentario> comentarios() {
+        return animalService.comentarios();
     }
 }

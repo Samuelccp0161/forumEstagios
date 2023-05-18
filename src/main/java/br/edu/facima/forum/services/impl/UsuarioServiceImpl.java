@@ -44,8 +44,4 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioLogado;
     }
 
-    @Override
-    public void comentar(String comentario) {
-
-    }
 }
