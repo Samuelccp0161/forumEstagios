@@ -23,4 +23,8 @@ public class UsuarioController {
     public void logar(String email, String senha){
         usuarioService.logar(email,senha);
     }
+
+    public void comentar(String comentario) {
+        usuarioService.comentar(comentario);
+    }
 }

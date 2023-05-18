@@ -12,4 +12,6 @@ public interface UsuarioService {
     void logar(String email, String senha);
 
     Optional<Usuario> getUsuarioLogado();
+
+    void comentar(String comentario);
 }

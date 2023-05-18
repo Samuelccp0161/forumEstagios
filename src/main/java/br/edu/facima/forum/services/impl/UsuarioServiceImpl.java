@@ -43,4 +43,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Optional<Usuario> getUsuarioLogado() {
         return usuarioLogado;
     }
+
+    @Override
+    public void comentar(String comentario) {
+
+    }
 }
