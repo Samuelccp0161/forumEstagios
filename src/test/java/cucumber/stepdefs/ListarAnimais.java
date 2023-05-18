@@ -12,14 +12,15 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ListarAnimais extends StepDefs{
 
-    private Animal gato = new Animal("Fran", "829886645", "Muito Birrenta");
-    private Animal cachorro = new Animal("Bart", "666666666", "Doido");
+    private final Animal gato = new Animal("Fran", "829886645", "Muito Birrenta");
+    private final Animal cachorro = new Animal("Bart", "666666666", "Doido");
 
 
     @Dado("que já existem animais cadastrados")
@@ -48,9 +49,13 @@ public class ListarAnimais extends StepDefs{
                 .andReturn();
     }
     @Entao("Todos os animais deverão ser retornados")
-    public void todosOsAnimaisDeveraoSerRetornados() {
+    public void todosOsAnimaisDeveraoSerRetornados() throws UnsupportedEncodingException {
+        String resultado = "\"gato {" +
+                "nome: Fran," +
+                "telefone: 000" +
+                "descricao: }\"";
 
-        throw new io.cucumber.java.PendingException();
+        assertEquals(resultado, resultadoDaRequisicao.getResponse().getContentAsString());
     }
 
 }
