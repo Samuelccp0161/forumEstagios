@@ -19,6 +19,7 @@ public class UsuarioController {
     public void cadastrar(@RequestBody Usuario usuario) throws UsuarioJaExistenteException {
         usuarioService.cadastrar(usuario);
     }
+    
     @PostMapping("login")
     public void logar(String email, String senha){
         usuarioService.logar(email,senha);

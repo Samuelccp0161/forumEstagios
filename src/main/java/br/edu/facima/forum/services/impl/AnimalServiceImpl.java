@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AnimalServiceImpl implements AnimalService {
@@ -45,5 +46,10 @@ public class AnimalServiceImpl implements AnimalService {
     public void comentar(Comentario comentario) {
         comentarioRepository.save(comentario);
         listaDeComentarios.add(comentario);
+    }
+
+    @Override
+    public void deletarComentario(Comentario comentario) {
+        comentarioRepository.delete(comentario);
     }
 }

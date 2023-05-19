@@ -91,5 +91,22 @@ class AnimalServiceImplTest {
                         comentarioRepository.findByComentario(comentario.getComentario()));
             }
         }
+        @Nested
+        class AoDeletar{
+            @Test
+            public void DeveriaDeletarOComentario(){
+                Comentario comentario = new Comentario("Ugly");
+
+                when(comentarioRepository.findByComentario(comentario.getComentario()))
+                        .thenReturn(Optional.of(comentario.getComentario()));
+
+                System.out.println(comentarioRepository.findByComentario(comentario.getComentario()));
+                animalService.deletarComentario(comentario);
+                System.out.println(comentarioRepository.findByComentario(comentario.getComentario()));
+
+                assertEquals(Optional.empty(),
+                        comentarioRepository.findByComentario(comentario.getComentario()));
+            }
+        }
     }
 }

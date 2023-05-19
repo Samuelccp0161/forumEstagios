@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ComentarioRepository extends JpaRepository<Comentario, Long> {
     Optional<String> findByComentario(String comentario);
+
+    void deleteByComentario(String comentario);
 }

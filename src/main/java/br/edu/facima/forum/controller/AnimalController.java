@@ -34,4 +34,7 @@ public class AnimalController {
     public void comentar(Comentario comentario) {
         animalService.comentar(comentario);
     }
+    public void deletarComentario(Comentario comentario){
+        animalService.deletarComentario(comentario);
+    }
 }
