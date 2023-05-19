@@ -25,4 +25,6 @@ public class UsuarioController {
         usuarioService.logar(email,senha);
     }
 
+
+
 }

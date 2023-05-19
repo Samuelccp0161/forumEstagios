@@ -2,6 +2,9 @@
 Funcionalidade: Comentar
 
   Cenario: Adicionar comentarios
-    Dado um animal publicado
-    Quando alguem achar o animal quiser deixar um comentario "fofinho"
-    Entao deve ser possivel adicionar essa opinião como comentario
+    Dado que existe um usuario logado
+    E existe um animal publicado
+    Quando o usuario tentar deixar o comentario "fofinho"
+    Entao este comentario deveria ter sido salvo
+    E o comentario salvo deveria informar quem foi autor
+    E deveria informar qual o animal comentado

@@ -10,8 +10,6 @@ import java.io.Serializable;
 @JsonPropertyOrder({"nome", "telefone", "descricao"})
 public class Animal implements Serializable {
 
-    private final Comentario comentario = new Comentario();
-
     @Serial private static final long serialVersionUID = 1L;
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +23,8 @@ public class Animal implements Serializable {
 
     @Column(nullable = false)
     private String descricao;
+
+    private final Comentario comentario = new Comentario();
 
     public Animal() {}
 

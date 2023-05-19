@@ -99,6 +99,14 @@ public class AnimalControllerTest {
 
                 verify(animalService).deletarComentario(comentario);
             }
+            @Test
+            public void deveriaDeletar(){
+                Comentario comentario = new Comentario("hehe");
+
+                animalController.deletarComentario(comentario);
+
+                verify(animalService).deletarComentario(same(comentario));
+            }
         }
     }
 }

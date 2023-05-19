@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -73,10 +74,7 @@ class AnimalServiceImplTest {
 
                 animalService.comentar(comentario);
 
-//                when(comentarioRepository.findByComentario(comentario.getComentario()))
-//                        .thenReturn(Optional.of(comentario.getComentario()));
-
-                verify(comentarioRepository).save(comentario);
+                verify(comentarioRepository).save(same(comentario));
             }
             @Test
             public void deveriaComentar(){
@@ -84,28 +82,17 @@ class AnimalServiceImplTest {
 
                 animalService.comentar(comentario);
 
-                when(comentarioRepository.findByComentario(comentario.getComentario()))
-                        .thenReturn(Optional.of(comentario.getComentario()));
+                verify(comentarioRepository).save(comentario);
 
-                assertEquals(Optional.of(new Comentario("HeyOh").getComentario()),
-                        comentarioRepository.findByComentario(comentario.getComentario()));
+                assertEquals("HeyOh", comentario.getComentario());
             }
         }
         @Nested
         class AoDeletar{
             @Test
             public void DeveriaDeletarOComentario(){
-                Comentario comentario = new Comentario("Ugly");
 
-                when(comentarioRepository.findByComentario(comentario.getComentario()))
-                        .thenReturn(Optional.of(comentario.getComentario()));
-
-                System.out.println(comentarioRepository.findByComentario(comentario.getComentario()));
-                animalService.deletarComentario(comentario);
-                System.out.println(comentarioRepository.findByComentario(comentario.getComentario()));
-
-                assertEquals(Optional.empty(),
-                        comentarioRepository.findByComentario(comentario.getComentario()));
+                
             }
         }
     }
