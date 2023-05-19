@@ -58,6 +58,14 @@ class AnimalServiceImplTest {
             animaisEsperados.add(coruja);
             return animaisEsperados;
         }
+        @Nested
+        class AoComentar{
+            @Test
+            public void deveriaComentar(){
 
+
+
+            }
+        }
     }
 }

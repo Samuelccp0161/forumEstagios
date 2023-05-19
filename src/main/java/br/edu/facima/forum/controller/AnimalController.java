@@ -29,4 +29,8 @@ public class AnimalController {
     public List<Comentario> comentarios() {
         return animalService.comentarios();
     }
+
+    public void comentar(String comentario) {
+        animalService.comentar(comentario);
+    }
 }

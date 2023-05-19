@@ -65,7 +65,24 @@ public class AnimalControllerTest {
                 animalController.comentarios();
 
                 verify(animalService).comentarios();
+
+                String comentario = "Hey";
+
+                animalController.comentar(comentario);
+
+                verify(animalService).comentar(same(comentario));
             }
+
+            @Test
+            public void deveriaRetornarOComentario(){
+
+                String comentario = "hey Yo";
+
+                animalController.comentar(comentario);
+
+                verify(animalService).comentar(same(comentario));
+            }
+
             @Test
             public void deveriaRetornarOsComentarios(){
                 List<Comentario> comentariosEsperados = new ArrayList<>();

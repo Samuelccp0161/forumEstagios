@@ -34,4 +34,9 @@ public class AnimalServiceImpl implements AnimalService {
     public List<Comentario> comentarios() {
         return null;
     }
+
+    @Override
+    public void comentar(String comentario) {
+
+    }
 }

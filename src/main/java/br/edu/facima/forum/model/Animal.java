@@ -9,6 +9,9 @@ import java.io.Serializable;
 @Entity
 @JsonPropertyOrder({"nome", "telefone", "descricao"})
 public class Animal implements Serializable {
+
+    private final Comentario comentario = new Comentario();
+
     @Serial private static final long serialVersionUID = 1L;
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
