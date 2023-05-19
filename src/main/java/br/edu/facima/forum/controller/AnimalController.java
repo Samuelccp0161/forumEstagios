@@ -30,6 +30,7 @@ public class AnimalController {
         return animalService.comentarios();
     }
 
+    @PostMapping("comentar")
     public void comentar(Comentario comentario) {
         animalService.comentar(comentario);
     }

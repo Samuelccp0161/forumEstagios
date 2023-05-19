@@ -73,9 +73,8 @@ class AnimalServiceImplTest {
 
                 animalService.comentar(comentario);
 
-                when(comentarioRepository.findByComentario(comentario.getComentario()))
-                        .thenReturn(Optional.of(comentario.getComentario()));
-
+//                when(comentarioRepository.findByComentario(comentario.getComentario()))
+//                        .thenReturn(Optional.of(comentario.getComentario()));
 
                 verify(comentarioRepository).save(comentario);
             }

@@ -1,8 +1,18 @@
 package br.edu.facima.forum.model;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 
-public class Comentario {
+import java.io.Serial;
+import java.io.Serializable;
+
+@Entity
+public class Comentario implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     public Comentario() {
     }
@@ -11,7 +21,7 @@ public class Comentario {
         this.comentario = comentario;
     }
 
-    @Column(nullable = false)
+    @Column()
     private String comentario;
 
     public String getComentario() {

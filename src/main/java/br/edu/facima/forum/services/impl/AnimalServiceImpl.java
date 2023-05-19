@@ -18,6 +18,8 @@ public class AnimalServiceImpl implements AnimalService {
 
     private final ComentarioRepository comentarioRepository;
 
+    private final List<Comentario> listaDeComentarios = new ArrayList<>();
+
     public AnimalServiceImpl(AnimalRepository animalRepository, ComentarioRepository comentarioRepository) {
         this.animalRepository = animalRepository;
         this.comentarioRepository = comentarioRepository;
@@ -36,11 +38,12 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public List<Comentario> comentarios() {
-        return null;
+        return listaDeComentarios;
     }
 
     @Override
     public void comentar(Comentario comentario) {
         comentarioRepository.save(comentario);
+        listaDeComentarios.add(comentario);
     }
 }
