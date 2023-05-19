@@ -3,6 +3,7 @@ package br.edu.facima.forum.services.impl;
 import br.edu.facima.forum.model.Animal;
 import br.edu.facima.forum.model.Comentario;
 import br.edu.facima.forum.repository.AnimalRepository;
+import br.edu.facima.forum.repository.ComentarioRepository;
 import br.edu.facima.forum.services.AnimalService;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,11 @@ public class AnimalServiceImpl implements AnimalService {
 
     private final List<Animal> animais = new ArrayList<>();
 
-    public AnimalServiceImpl(AnimalRepository animalRepository) {
+    private final ComentarioRepository comentarioRepository;
+
+    public AnimalServiceImpl(AnimalRepository animalRepository, ComentarioRepository comentarioRepository) {
         this.animalRepository = animalRepository;
+        this.comentarioRepository = comentarioRepository;
     }
 
     @Override
@@ -36,7 +40,7 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public void comentar(String comentario) {
-
+    public void comentar(Comentario comentario) {
+        comentarioRepository.save(comentario);
     }
 }

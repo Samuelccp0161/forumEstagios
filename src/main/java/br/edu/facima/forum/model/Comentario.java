@@ -11,7 +11,7 @@ public class Comentario {
         this.comentario = comentario;
     }
 
-    @Column
+    @Column(nullable = false)
     private String comentario;
 
     public String getComentario() {

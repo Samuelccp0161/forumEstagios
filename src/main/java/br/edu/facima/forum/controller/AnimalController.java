@@ -30,7 +30,7 @@ public class AnimalController {
         return animalService.comentarios();
     }
 
-    public void comentar(String comentario) {
+    public void comentar(Comentario comentario) {
         animalService.comentar(comentario);
     }
 }

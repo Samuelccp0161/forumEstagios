@@ -13,5 +13,5 @@ public interface AnimalService {
 
     List<Comentario> comentarios();
 
-    void comentar(String comentario);
+    void comentar(Comentario comentario);
 }

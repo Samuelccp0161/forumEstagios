@@ -66,7 +66,8 @@ public class AnimalControllerTest {
 
                 verify(animalService).comentarios();
 
-                String comentario = "Hey";
+
+                Comentario comentario = new Comentario("Hey");
 
                 animalController.comentar(comentario);
 
@@ -76,7 +77,7 @@ public class AnimalControllerTest {
             @Test
             public void deveriaRetornarOComentario(){
 
-                String comentario = "hey Yo";
+                Comentario comentario = new Comentario("hey Yo");
 
                 animalController.comentar(comentario);
 
