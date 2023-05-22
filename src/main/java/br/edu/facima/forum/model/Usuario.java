@@ -18,6 +18,13 @@ public class Usuario implements Serializable {
 
     @Column(length = 100, nullable = false)
     private String nome;
+    public Usuario(){}
+
+    public Usuario(String nome, String email, String senha) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+    }
 
     @Column(length = 100, nullable = false)
     private String email;

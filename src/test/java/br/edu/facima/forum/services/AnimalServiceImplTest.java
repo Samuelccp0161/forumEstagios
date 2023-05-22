@@ -87,13 +87,5 @@ class AnimalServiceImplTest {
                 assertEquals("HeyOh", comentario.getComentario());
             }
         }
-        @Nested
-        class AoDeletar{
-            @Test
-            public void DeveriaDeletarOComentario(){
-
-                
-            }
-        }
     }
 }

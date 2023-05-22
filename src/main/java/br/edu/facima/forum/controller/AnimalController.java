@@ -29,12 +29,4 @@ public class AnimalController {
     public List<Comentario> comentarios() {
         return animalService.comentarios();
     }
-
-    @PostMapping("comentar")
-    public void comentar(Comentario comentario) {
-        animalService.comentar(comentario);
-    }
-    public void deletarComentario(Comentario comentario){
-        animalService.deletarComentario(comentario);
-    }
 }

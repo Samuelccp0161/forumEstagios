@@ -41,18 +41,6 @@ public class LoginStepDefs extends StepDefs{
         cadastrarUsuario(usuario);
     }
 
-    private void cadastrarUsuario(Usuario usuario) throws Exception {
-        String cadastroJson = converterObjetoEmJson(usuario);
-
-        var requestParaEnviarCadastro = post("/api/usuario/cadastrar")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(cadastroJson);
-
-        mockMvc.perform(requestParaEnviarCadastro)
-                .andDo(print())  // Descomentar essa linha se quiser que printe o request e o response
-                .andExpect(status().isOk());
-    }
-
     MvcResult resultadoDaRequisicao;
 
     @Quando("o mesmo tentar logar com os dados corretos")

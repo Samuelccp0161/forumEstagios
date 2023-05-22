@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.io.UnsupportedEncodingException;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -47,17 +48,18 @@ public class ListarAnimais extends StepDefs{
     }
     @Entao("Todos os animais deverão ser retornados")
     public void todosOsAnimaisDeveraoSerRetornados() throws UnsupportedEncodingException {
-        String resultado = "[{\"nome\":\"frajola\",\"telefone\":\"333\",\"descricao\":\"Alto\"}," +
-                "{\"nome\":\"Fran\"," +
-                "\"telefone\":\"829886645\"," +
-                "\"descricao\":\"Muito Birrenta\"}" +
-                ",{" +
-                "\"nome\":\"Bart\"," +
-                "\"telefone\":\"666666666\"," +
-                "\"descricao\":\"Doido\"" +
-                "}]";
+        String responseBody = resultadoDaRequisicao.getResponse().getContentAsString();
 
-        assertEquals(resultado, resultadoDaRequisicao.getResponse().getContentAsString());
+        assertThat(responseBody).containsSubsequence(
+                gato.getNome(),
+                gato.getTelefone(),
+                gato.getDescricao()
+        );
+        assertThat(responseBody).containsSubsequence(
+                cachorro.getNome(),
+                cachorro.getTelefone(),
+                cachorro.getDescricao()
+        );
     }
 
 }

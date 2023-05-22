@@ -68,16 +68,6 @@ public class AnimalControllerTest {
             }
 
             @Test
-            public void deveriaRetornarOComentario(){
-
-                Comentario comentario = new Comentario("hey Yo");
-
-                animalController.comentar(comentario);
-
-                verify(animalService).comentar(same(comentario));
-            }
-
-            @Test
             public void deveriaRetornarOsComentarios(){
                 List<Comentario> comentariosEsperados = new ArrayList<>();
                 comentariosEsperados.add(null);
@@ -87,25 +77,6 @@ public class AnimalControllerTest {
                 List<Comentario> comentarios = animalController.comentarios();
 
                 assertThat(comentarios).isEqualTo(comentariosEsperados);
-            }
-        }
-        @Nested
-        class AoDeletarComentario{
-            @Test
-            public void deveriaDelegarAoService(){
-                Comentario comentario = new Comentario("Fuck");
-
-                animalController.deletarComentario(comentario);
-
-                verify(animalService).deletarComentario(comentario);
-            }
-            @Test
-            public void deveriaDeletar(){
-                Comentario comentario = new Comentario("hehe");
-
-                animalController.deletarComentario(comentario);
-
-                verify(animalService).deletarComentario(same(comentario));
             }
         }
     }

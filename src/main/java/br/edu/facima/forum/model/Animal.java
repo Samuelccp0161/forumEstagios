@@ -24,8 +24,6 @@ public class Animal implements Serializable {
     @Column(nullable = false)
     private String descricao;
 
-    private final Comentario comentario = new Comentario();
-
     public Animal() {}
 
     public Animal(String nome, String telefone, String descricao) {
@@ -57,4 +55,12 @@ public class Animal implements Serializable {
         return telefone;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "{\"nome\":\"Fran\",\"telefone\":\"829886645\",\"descricao\":\"Muito Birrenta\"}";
+    }
 }

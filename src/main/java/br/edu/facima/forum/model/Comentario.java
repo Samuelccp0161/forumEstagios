@@ -14,6 +14,7 @@ public class Comentario implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String email;
     public Comentario() {
     }
 
@@ -30,5 +31,13 @@ public class Comentario implements Serializable {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    public String getAutorEmail() {
+        return email;
+    }
+
+    public Long getAnimalId() {
+        return null;
     }
 }

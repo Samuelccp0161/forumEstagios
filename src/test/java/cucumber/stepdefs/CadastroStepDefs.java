@@ -10,6 +10,7 @@ import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.Example;
 import org.springframework.http.MediaType;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,6 +62,7 @@ public class CadastroStepDefs extends StepDefs {
     @Entao("o aluno deveria ter sido cadastrado com sucesso")
     public void oAlunoDeveriaTerSidoCadastradoComSucesso() throws JsonProcessingException {
         Usuario usuarioConsultado = usuarioRepository.findByEmail(usuario.getEmail()).orElseThrow();
+//        Usuario usuarioConsultado = usuarioRepository.findOne(Example.of(usuario)).orElseThrow();
         System.out.println(usuarioConsultado);
         assertThat(usuarioConsultado).isEqualTo(usuario);
     }
