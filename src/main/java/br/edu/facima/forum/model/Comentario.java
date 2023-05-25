@@ -1,29 +1,32 @@
 package br.edu.facima.forum.model;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "COMENTARIO")
+@JsonPropertyOrder({"comentario", "autorEmail", "animalId"})
 public class Comentario implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Serial private static final long serialVersionUID = 1L;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    private String email;
-    public Comentario() {
-    }
-
-    public Comentario(String comentario) {
-        this.comentario = comentario;
-    }
-
-    @Column()
+    @Column(length = 500, nullable = false)
     private String comentario;
+    @Column(length = 150, nullable = false)
+    private String autorEmail;
+    @Column(nullable = false)
+    private Long animalId;
+
+    public Comentario() {}
+
+    public Comentario(String autorEmail,Long animalId,String comentario) {
+        this.comentario = comentario;
+        this.autorEmail = autorEmail;
+        this.animalId = animalId;
+    }
 
     public String getComentario() {
         return comentario;
@@ -34,10 +37,18 @@ public class Comentario implements Serializable {
     }
 
     public String getAutorEmail() {
-        return email;
+        return autorEmail;
     }
 
     public Long getAnimalId() {
-        return null;
+        return animalId;
+    }
+
+    public void setAutorEmail(String autorEmail) {
+        this.autorEmail = autorEmail;
+    }
+
+    public void setAnimalId(Long animalId) {
+        this.animalId = animalId;
     }
 }

@@ -28,15 +28,11 @@ public class ComentarioServiceImplTest {
     class aoComentar{
         @Test
         public void deveriaSalvarOComentario(){
-            Comentario comentario = new Comentario("Hello");
+            Comentario comentario = new Comentario();
 
            comentarioService.comentar(comentario);
 
            verify(comentarioRepository).save(same(comentario));
-        }
-        @Test
-        public void deveriaComentar(){
-
         }
     }
 }

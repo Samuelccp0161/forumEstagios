@@ -57,27 +57,5 @@ public class AnimalControllerTest {
             assertThat(animais).isEqualTo(animaisEsperados);
 
         }
-        @Nested
-        class AoComentar{
-            @Test
-            public void deveriaDelegarParaOService(){
-
-                animalController.comentarios();
-
-                verify(animalService).comentarios();
-            }
-
-            @Test
-            public void deveriaRetornarOsComentarios(){
-                List<Comentario> comentariosEsperados = new ArrayList<>();
-                comentariosEsperados.add(null);
-
-                when(animalService.comentarios()).thenReturn(comentariosEsperados);
-
-                List<Comentario> comentarios = animalController.comentarios();
-
-                assertThat(comentarios).isEqualTo(comentariosEsperados);
-            }
-        }
     }
 }

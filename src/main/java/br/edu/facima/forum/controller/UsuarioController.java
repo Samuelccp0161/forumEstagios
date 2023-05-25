@@ -30,7 +30,7 @@ public class UsuarioController {
     }
 
     @PostMapping("comentar")
-    public void comentar(Comentario comentario){
+    public void comentar(@RequestBody Comentario comentario){
         comentarioService.comentar(comentario);
     }
 }

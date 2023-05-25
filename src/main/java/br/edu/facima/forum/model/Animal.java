@@ -7,20 +7,16 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "ANIMAL")
 @JsonPropertyOrder({"nome", "telefone", "descricao"})
 public class Animal implements Serializable {
-
     @Serial private static final long serialVersionUID = 1L;
-
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Column(length = 150, nullable = false)
     private String nome;
-
     @Column(nullable = false)
     private String telefone;
-
     @Column(nullable = false)
     private String descricao;
 
@@ -57,6 +53,9 @@ public class Animal implements Serializable {
 
     public Long getId() {
         return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

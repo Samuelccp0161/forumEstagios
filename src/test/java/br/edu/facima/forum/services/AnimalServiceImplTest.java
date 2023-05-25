@@ -66,26 +66,5 @@ class AnimalServiceImplTest {
             animaisEsperados.add(coruja);
             return animaisEsperados;
         }
-        @Nested
-        class AoComentar{
-            @Test
-            public void deveriaSalvarOComentario(){
-                Comentario comentario = new Comentario("hey");
-
-                animalService.comentar(comentario);
-
-                verify(comentarioRepository).save(same(comentario));
-            }
-            @Test
-            public void deveriaComentar(){
-                Comentario comentario = new Comentario("HeyOh");
-
-                animalService.comentar(comentario);
-
-                verify(comentarioRepository).save(comentario);
-
-                assertEquals("HeyOh", comentario.getComentario());
-            }
-        }
     }
 }

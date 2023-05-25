@@ -14,8 +14,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class StepDefs {
     @Autowired protected MockMvc mockMvc;
-
     private final ObjectWriter jsonWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+    protected Usuario usuarioLogado;
 
     protected String converterObjetoEmJson(Object obj) {
         try {
@@ -45,5 +45,18 @@ public class StepDefs {
 
         mockMvc.perform(requestParaLogar)
                 .andDo(print());
+    }
+    protected void criarUsuarioELogar(String nome, String email, String senha, Long contato) throws Exception {
+        usuarioLogado = new Usuario(nome, email, senha);
+        usuarioLogado.setContato(contato);
+        cadastrarUsuario(usuarioLogado);
+        logarUsuario(usuarioLogado);
+    }
+
+    protected void fazerUmaChamadaPost(String url, String conteudoJson) throws Exception {
+        mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(conteudoJson))
+                .andExpect(status().isOk());
     }
 }

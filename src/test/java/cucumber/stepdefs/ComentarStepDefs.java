@@ -18,49 +18,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ComentarStepDefs extends StepDefs{
-
     @Autowired
     ComentarioRepository comentarioRepository;
-
     @Autowired
     AnimalRepository animalRepository;
-
     private Animal animal = new Animal("frajola", "333", "Alto");
     private Comentario comentario;
     private Comentario comentarioConsultado;
-    private Usuario usuarioLogado;
-
     @Dado("que existe um usuario logado")
     public void queExisteUmUsuarioLogado() throws Exception {
-        usuarioLogado = new Usuario("João", "gg@gmail.com", "333");
-        usuarioLogado.setContato(8199809099L);
-        cadastrarUsuario(usuarioLogado);
-        logarUsuario(usuarioLogado);
+        criarUsuarioELogar("João", "gg@gmail.com", "333", 8199809099L);
     }
-
     @Dado("existe um animal publicado")
     public void UmAnimalPublicado() throws Exception {
         String gatoJson = converterObjetoEmJson(animal);
 
-        mockMvc.perform(post("/api/animais/publicar")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(gatoJson))
-                .andExpect(status().isOk());
+        fazerUmaChamadaPost("/api/animais/publicar", gatoJson);
 
         animal = animalRepository.findOne(Example.of(animal)).orElseThrow();
     }
 
     @Quando("o usuario tentar deixar o comentario {string}")
-    public void alguemQuererComentarSobreOAnimal(String comentario) throws Exception {
-        this.comentario = new Comentario(comentario);
+    public void alguemQuererComentarSobreOAnimal(String mensagemComentario) throws Exception {
+        comentario = new Comentario(usuarioLogado.getEmail(),animal.getId(),mensagemComentario);
 
-        String comentarioJson = converterObjetoEmJson(this.comentario);
+        String comentarioJson = converterObjetoEmJson(comentario);
 
-        mockMvc.perform(post("/api/usuario/comentar")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(comentarioJson))
-                .andDo(print())
-                .andExpect(status().isOk());
+        fazerUmaChamadaPost("/api/usuario/comentar", comentarioJson);
     }
 
     @Entao("este comentario deveria ter sido salvo")

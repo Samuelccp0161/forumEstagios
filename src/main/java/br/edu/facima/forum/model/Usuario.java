@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name = "USUARIO")
 @JsonPropertyOrder({"nome", "email", "contato", "senha"})
 public class Usuario implements Serializable {
     @Serial private static final long serialVersionUID = 1L;

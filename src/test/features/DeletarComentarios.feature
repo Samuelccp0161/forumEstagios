@@ -2,6 +2,7 @@
 Funcionalidade: Deletar
 
   Cenario: Deletar comentario com sucesso
-    Dado Um comentario impertinente tal qual "Nojento!!"
-    Quando alguem quiser apagar o mesmo
-    Entao Deveria ser deletado com sucesso
+    Dado um animal publicado
+    E Um usuario comentanto
+    Quando o usuario quiser deletar o comentario
+    Entao o comentario Deveria ser deletado com sucesso
