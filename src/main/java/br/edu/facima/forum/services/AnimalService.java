@@ -11,9 +11,4 @@ public interface AnimalService {
 
     List<Animal> listar();
 
-    List<Comentario> comentarios();
-
-    void comentar(Comentario comentario);
-
-    void deletarComentario(Comentario comentario);
 }

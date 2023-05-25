@@ -25,8 +25,4 @@ public class AnimalController {
     public List<Animal> listar() {
         return animalService.listar();
     }
-
-    public List<Comentario> comentarios() {
-        return animalService.comentarios();
-    }
 }
