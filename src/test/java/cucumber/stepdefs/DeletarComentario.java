@@ -29,7 +29,7 @@ public class DeletarComentario extends StepDefs{
     }
     @Dado("Um usuario comentanto")
     public void um_usuario_comentanto() throws Exception {
-        criarUsuarioELogar("meimei", "meimei@gmail.com", "1235", 153L);
+        cadastrarUsuarioELogar("meimei", "meimei@gmail.com", "1235", 153L);
 
         comentario = new Comentario(usuarioLogado.getEmail(), animal.getId(), "nojento");
 

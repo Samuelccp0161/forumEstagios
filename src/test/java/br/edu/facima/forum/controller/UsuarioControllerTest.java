@@ -52,9 +52,19 @@ class UsuarioControllerTest {
         @Test
         public void delegarOComentar(){
             Comentario comentario = new Comentario();
+
             usuarioController.comentar(comentario);
 
             verify(comentarioService).comentar(same(comentario));
+        }
+    }
+    @Nested
+    class aoListarComentarios{
+        @Test
+        public void deveriaDelegarParaOListarComentarios(){
+            usuarioController.listarComentariosDoUsuario("");
+
+            verify(comentarioService).listarComentariosDoUsuario("");
         }
     }
 }

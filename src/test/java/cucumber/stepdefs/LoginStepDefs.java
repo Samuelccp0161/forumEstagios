@@ -23,11 +23,6 @@ public class LoginStepDefs extends StepDefs{
 
     public static final String EMAIL = "juleima@gmail.com";
     public static final String SENHA = "experimento626";
-
-//    @Autowired
-//    UsuarioController cadastro;
-//    @Autowired
-//    UsuarioRepository repository;
     Usuario usuario;
 
     @Dado("um usuario já cadastrado")

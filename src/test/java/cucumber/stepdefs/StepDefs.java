@@ -46,7 +46,7 @@ public class StepDefs {
         mockMvc.perform(requestParaLogar)
                 .andDo(print());
     }
-    protected void criarUsuarioELogar(String nome, String email, String senha, Long contato) throws Exception {
+    protected void cadastrarUsuarioELogar(String nome, String email, String senha, Long contato) throws Exception {
         usuarioLogado = new Usuario(nome, email, senha);
         usuarioLogado.setContato(contato);
         cadastrarUsuario(usuarioLogado);

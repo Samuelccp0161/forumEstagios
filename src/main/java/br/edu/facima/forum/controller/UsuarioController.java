@@ -7,6 +7,8 @@ import br.edu.facima.forum.services.ComentarioService;
 import br.edu.facima.forum.services.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/usuario")
 public class UsuarioController {
@@ -32,5 +34,9 @@ public class UsuarioController {
     @PostMapping("comentar")
     public void comentar(@RequestBody Comentario comentario){
         comentarioService.comentar(comentario);
+    }
+    @GetMapping("comentarios")
+    public List<Comentario> listarComentariosDoUsuario(@RequestBody String email) {
+        return comentarioService.listarComentariosDoUsuario(email);
     }
 }

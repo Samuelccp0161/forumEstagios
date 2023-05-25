@@ -1,5 +1,5 @@
 # language: pt
-Funcionalidade: Cadastrar
+Funcionalidade: Cadastrar alunos
   Cenario: Cadastrar um aluno
     Dado o nome "Maria Jose"
     E o email "fulano@facima.edu.br"
