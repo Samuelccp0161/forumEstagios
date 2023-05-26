@@ -27,6 +27,13 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
+    public Usuario(String nome, String email,String senha, Long contato) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.contato = contato;
+    }
+
     @Column(length = 100, nullable = false)
     private String email;
 

@@ -2,8 +2,10 @@ package cucumber.stepdefs;
 
 import br.edu.facima.forum.model.Animal;
 import br.edu.facima.forum.model.Comentario;
+import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.repository.AnimalRepository;
 import br.edu.facima.forum.repository.ComentarioRepository;
+import io.cucumber.java.Before;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
@@ -27,10 +29,11 @@ public class ComentarStepDefs extends StepDefs{
     private Comentario comentario;
     private Comentario comentarioConsultado;
     private Comentario[] comentariosPublicados;
-
+    private final Usuario usuario = new Usuario("João", "gg@gmail.com", "333", 8199809099L);
     @Dado("que existe um usuario logado")
     public void queExisteUmUsuarioLogado() throws Exception {
-        cadastrarUsuarioELogar("João", "gg@gmail.com", "333", 8199809099L);
+        cadastrarUsuario(usuario);
+        logarUsuario(usuario);
     }
     @Dado("existe um animal publicado")
     public void UmAnimalPublicado() throws Exception {
@@ -43,7 +46,7 @@ public class ComentarStepDefs extends StepDefs{
 
     @Quando("o usuario tentar deixar o comentario {string}")
     public void alguemQuererComentarSobreOAnimal(String mensagemComentario) throws Exception {
-        comentario = new Comentario(usuarioLogado.getEmail(),animal.getId(),mensagemComentario);
+        comentario = new Comentario(usuario.getEmail(),animal.getId(),mensagemComentario);
 
         publicarComentario(comentario);
     }
@@ -61,21 +64,19 @@ public class ComentarStepDefs extends StepDefs{
     
     @Entao("o comentario salvo deveria informar quem foi autor")
     public void o_comentario_salvo_deveria_informar_quem_foi_autor() {
-        assertThat(comentarioConsultado.getAutorEmail()).isEqualTo(usuarioLogado.getEmail());
+        assertThat(comentarioConsultado.getAutorEmail()).isEqualTo(usuario.getEmail());
     }
 
     @Entao("deveria informar qual o animal comentado")
     public void deveria_informar_qual_o_animal_comentado() {
         assertThat(comentarioConsultado.getAnimalId()).isEqualTo(animal.getId());
-
     }
-
 
     @Dado("existem comentarios publicados")
     public void existemComentariosPublicados() throws Exception {
-        Comentario comentario1 = new Comentario(usuarioLogado.getEmail(), 1L, "hey");
-        Comentario comentario2 = new Comentario(usuarioLogado.getEmail(), 2L, "hi");
-        Comentario comentario3 = new Comentario(usuarioLogado.getEmail() + "sdaj", 4L, "hii");
+        Comentario comentario1 = new Comentario(usuario.getEmail(), 1L, "hey");
+        Comentario comentario2 = new Comentario(usuario.getEmail(), 2L, "hi");
+        Comentario comentario3 = new Comentario(usuario.getEmail() + "sdaj", 4L, "hii");
 
         comentariosPublicados = new Comentario[] {comentario1, comentario2, comentario3};
 
@@ -87,12 +88,17 @@ public class ComentarStepDefs extends StepDefs{
     @Quando("tentar listar os comentarios")
     public void tentarListarOsComentarios() throws Exception {
         resultadoDaRequisicao = mockMvc.perform(get("/api/usuario/comentarios")
-                        .content(usuarioLogado.getEmail())
+                        .content(usuario.getEmail())
                 ).andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
     }
 
+    @Quando("tentar listar os comentarios do animal")
+    public void tentar_listar_os_comentarios_do_animal() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
     @Entao("Todos os comentarios do mesmo deverão ser retornados")
     public void todosOsComentariosDesteUsuarioDeverãoSerRetornados() throws UnsupportedEncodingException {
         String responseBody = resultadoDaRequisicao.getResponse().getContentAsString();
