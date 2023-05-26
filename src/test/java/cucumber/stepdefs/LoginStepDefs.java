@@ -5,6 +5,7 @@ import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.repository.UsuarioRepository;
 import br.edu.facima.forum.services.UsuarioService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.cucumber.java.Before;
 import io.cucumber.java.es.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
@@ -49,11 +50,6 @@ public class LoginStepDefs extends StepDefs{
         resultadoDaRequisicao = mockMvc.perform(requestParaLogar)
                 .andDo(print())  // Descomentar essa linha se quiser que printe o request e o response
                 .andReturn();
-
-//        if (repository.findByEmail(usuario.getEmail()).orElseThrow().toString().equals(loginJson)){
-//            resultadoDaRequisicao.getResponse().setStatus(200);
-//        }
-
     }
 
     @Entao("o usuario deveria ter sido logado com sucesso")

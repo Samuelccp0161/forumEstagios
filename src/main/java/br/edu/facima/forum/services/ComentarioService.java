@@ -8,4 +8,6 @@ public interface ComentarioService {
     void comentar(Comentario comentario);
 
     List<Comentario> listarComentariosDoUsuario(String email);
+
+    List<Comentario> listarComentariosDoAnimal(Long animalId);
 }

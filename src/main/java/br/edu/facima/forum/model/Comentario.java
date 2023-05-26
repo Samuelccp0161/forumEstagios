@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "COMENTARIO")
@@ -50,5 +51,25 @@ public class Comentario implements Serializable {
 
     public void setAnimalId(Long animalId) {
         this.animalId = animalId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Comentario that = (Comentario) o;
+
+        if (!comentario.equals(that.comentario)) return false;
+        if (!autorEmail.equals(that.autorEmail)) return false;
+        return animalId.equals(that.animalId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = comentario.hashCode();
+        result = 31 * result + autorEmail.hashCode();
+        result = 31 * result + animalId.hashCode();
+        return result;
     }
 }

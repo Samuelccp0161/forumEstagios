@@ -5,6 +5,7 @@ import br.edu.facima.forum.model.Comentario;
 import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.repository.AnimalRepository;
 import br.edu.facima.forum.repository.ComentarioRepository;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
@@ -14,6 +15,10 @@ import org.springframework.data.domain.Example;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,58 +30,65 @@ public class ComentarStepDefs extends StepDefs{
     ComentarioRepository comentarioRepository;
     @Autowired
     AnimalRepository animalRepository;
-    private Animal animal = new Animal("frajola", "333", "Alto");
-    private Comentario comentario;
-    private Comentario comentarioConsultado;
-    private Comentario[] comentariosPublicados;
-    private final Usuario usuario = new Usuario("João", "gg@gmail.com", "333", 8199809099L);
-    @Dado("que existe um usuario logado")
-    public void queExisteUmUsuarioLogado() throws Exception {
-        cadastrarUsuario(usuario);
-        logarUsuario(usuario);
+    
+    @Before
+    public void afterCenario() {
+        esvaziarContexto();
     }
-    @Dado("existe um animal publicado")
-    public void UmAnimalPublicado() throws Exception {
-        String gatoJson = converterObjetoEmJson(animal);
 
-        fazerUmaChamadaPost("/api/animais/publicar", gatoJson);
+    private final Usuario usuario = new Usuario("João", "gg@gmail.com", "333", 8199809099L);
+
+    @Dado("que existe um usuario cadastrado")
+    public void queExisteUmUsuario() throws Exception {
+        cadastrarUsuario(usuario);
+    }
+
+    private Animal animal = new Animal("frajola", "333", "Alto");
+    
+    @Dado("um animal publicado")
+    public void UmAnimalPublicado() throws Exception {
+        cadastrarAnimal(animal);
 
         animal = animalRepository.findOne(Example.of(animal)).orElseThrow();
     }
 
+    private Comentario comentarioSalvo;
+    
     @Quando("o usuario tentar deixar o comentario {string}")
     public void alguemQuererComentarSobreOAnimal(String mensagemComentario) throws Exception {
-        comentario = new Comentario(usuario.getEmail(),animal.getId(),mensagemComentario);
+        comentarioSalvo = new Comentario(usuario.getEmail(),animal.getId(),mensagemComentario);
 
-        publicarComentario(comentario);
+        publicarComentario(comentarioSalvo);
     }
 
     private void publicarComentario(Comentario comentario) throws Exception {
         String comentarioJson = converterObjetoEmJson(comentario);
-
+        System.out.println(comentarioJson);
         fazerUmaChamadaPost("/api/usuario/comentar", comentarioJson);
     }
 
     @Entao("este comentario deveria ter sido salvo")
     public void este_comentario_deveria_ter_sido_salvo() {
-        comentarioConsultado = comentarioRepository.findOne(Example.of(comentario)).orElseThrow();
+        comentarioSalvo = comentarioRepository.findOne(Example.of(comentarioSalvo)).orElseThrow();
     }
     
     @Entao("o comentario salvo deveria informar quem foi autor")
     public void o_comentario_salvo_deveria_informar_quem_foi_autor() {
-        assertThat(comentarioConsultado.getAutorEmail()).isEqualTo(usuario.getEmail());
+        assertThat(comentarioSalvo.getAutorEmail()).isEqualTo(usuario.getEmail());
     }
 
     @Entao("deveria informar qual o animal comentado")
     public void deveria_informar_qual_o_animal_comentado() {
-        assertThat(comentarioConsultado.getAnimalId()).isEqualTo(animal.getId());
+        assertThat(comentarioSalvo.getAnimalId()).isEqualTo(animal.getId());
     }
 
+    private Comentario[] comentariosPublicados;
+    
     @Dado("existem comentarios publicados")
     public void existemComentariosPublicados() throws Exception {
-        Comentario comentario1 = new Comentario(usuario.getEmail(), 1L, "hey");
-        Comentario comentario2 = new Comentario(usuario.getEmail(), 2L, "hi");
-        Comentario comentario3 = new Comentario(usuario.getEmail() + "sdaj", 4L, "hii");
+        Comentario comentario1 = new Comentario(usuario.getEmail(), animal.getId(), "hey");
+        Comentario comentario2 = new Comentario(usuario.getEmail(), 19L, "hi");
+        Comentario comentario3 = new Comentario(usuario.getEmail() + "sdaj", animal.getId(), "hii");
 
         comentariosPublicados = new Comentario[] {comentario1, comentario2, comentario3};
 
@@ -85,8 +97,8 @@ public class ComentarStepDefs extends StepDefs{
         publicarComentario(comentario3);
     }
     private MvcResult resultadoDaRequisicao;
-    @Quando("tentar listar os comentarios")
-    public void tentarListarOsComentarios() throws Exception {
+    @Quando("tentar listar os comentarios do usuario")
+    public void tentarListarOsComentariosDoUsuario() throws Exception {
         resultadoDaRequisicao = mockMvc.perform(get("/api/usuario/comentarios")
                         .content(usuario.getEmail())
                 ).andDo(print())
@@ -95,28 +107,37 @@ public class ComentarStepDefs extends StepDefs{
     }
 
     @Quando("tentar listar os comentarios do animal")
-    public void tentar_listar_os_comentarios_do_animal() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void tentar_listar_os_comentarios_do_animal() throws Exception {
+        resultadoDaRequisicao = mockMvc.perform(get("/api/animais/" + animal.getId() + "/comentarios"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
     }
-    @Entao("Todos os comentarios do mesmo deverão ser retornados")
-    public void todosOsComentariosDesteUsuarioDeverãoSerRetornados() throws UnsupportedEncodingException {
+    
+    @Entao("Todos os comentarios do {} deverão ser retornados")
+    public void todosOsComentariosDeverãoSerRetornados(String entity) throws UnsupportedEncodingException {
+        List<Comentario> comentariosEsperados = switch (entity) {
+            case "usuario" -> getComentariosDoUsuario();
+            case "animal" -> getComentariosDoAnimal();
+            default -> new ArrayList<>();
+        };
+
         String responseBody = resultadoDaRequisicao.getResponse().getContentAsString();
 
-        assertThat(responseBody).containsSubsequence(
-                comentariosPublicados[0].getComentario(),
-                comentariosPublicados[0].getAutorEmail(),
-                comentariosPublicados[0].getAnimalId().toString()
-        );
-        assertThat(responseBody).containsSubsequence(
-                comentariosPublicados[1].getComentario(),
-                comentariosPublicados[1].getAutorEmail(),
-                comentariosPublicados[1].getAnimalId().toString()
-        );
-        assertThat(responseBody).doesNotContain(
-                comentariosPublicados[2].getComentario(),
-                comentariosPublicados[2].getAutorEmail(),
-                comentariosPublicados[2].getAnimalId().toString()
-        );
+        Comentario[] comentarios = converterJson(responseBody, Comentario[].class);
+        
+        assertThat(comentarios).hasSameElementsAs(comentariosEsperados);
+    }
+
+    private List<Comentario> getComentariosDoAnimal() {
+        return Arrays.stream(comentariosPublicados)
+                .filter(c -> c.getAnimalId().equals(animal.getId()))
+                .collect(Collectors.toList());
+    }
+
+    private List<Comentario> getComentariosDoUsuario() {
+        return Arrays.stream(comentariosPublicados)
+                .filter(c -> c.getAutorEmail().equals(usuario.getEmail()))
+                .collect(Collectors.toList());
     }
 }

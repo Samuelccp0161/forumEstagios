@@ -24,4 +24,9 @@ public class ComentarioServiceImpl implements ComentarioService {
     public List<Comentario> listarComentariosDoUsuario(String email) {
         return comentarioRepository.findByAutorEmail(email);
     }
+
+    @Override
+    public List<Comentario> listarComentariosDoAnimal(Long animalId) {
+        return comentarioRepository.findByAnimalId(animalId);
+    }
 }

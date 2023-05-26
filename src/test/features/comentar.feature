@@ -2,8 +2,8 @@
 Funcionalidade: Comentar
 
   Cenario: Adicionar comentarios
-    Dado que existe um usuario logado
-    E existe um animal publicado
+    Dado que existe um usuario cadastrado
+    E um animal publicado
     Quando o usuario tentar deixar o comentario "fofinho"
     Entao este comentario deveria ter sido salvo
     E o comentario salvo deveria informar quem foi autor

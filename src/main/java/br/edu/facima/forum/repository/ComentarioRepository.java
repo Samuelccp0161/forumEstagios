@@ -10,4 +10,6 @@ import java.util.List;
 public interface ComentarioRepository extends JpaRepository<Comentario, Long> {
 
     List<Comentario> findByAutorEmail(String email);
+
+    List<Comentario> findByAnimalId(Long id);
 }

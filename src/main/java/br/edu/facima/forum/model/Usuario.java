@@ -43,9 +43,6 @@ public class Usuario implements Serializable {
     @Column(length = 25, nullable = false)
     private String senha;
 
-    @Column()
-    private final Comentario comentario = new Comentario();
-
     public String getNome() {
         return nome;
     }

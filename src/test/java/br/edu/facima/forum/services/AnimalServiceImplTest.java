@@ -48,12 +48,11 @@ class AnimalServiceImplTest {
     class AoListar{
         @Test
         public void DeveriaListarOsAnimais(){
-            Animal passaro = new Animal("zezé", "8825", "pequeno");
-            Animal coruja = new Animal("arquimedes", "336", "silencioso");
-            List<Animal> animaisEsperados = adicionarDoisAnimaisALista(passaro, coruja);
+            List<Animal> animaisEsperados = new ArrayList<>();
+            animaisEsperados.add(new Animal("zezé", "8825", "pequeno"));
+            animaisEsperados.add(new Animal("arquimedes", "336", "silencioso"));
 
-            animalService.publicar(passaro);
-            animalService.publicar(coruja);
+            when(animalRepository.findAll()).thenReturn(animaisEsperados);
 
             List<Animal> animais = animalService.listar();
 

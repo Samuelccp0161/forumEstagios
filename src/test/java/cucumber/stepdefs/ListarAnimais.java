@@ -1,13 +1,15 @@
 package cucumber.stepdefs;
 
 import br.edu.facima.forum.model.Animal;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,26 +18,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ListarAnimais extends StepDefs{
-
-    private final Animal gato = new Animal("Fran", "829886645", "Muito Birrenta");
-    private final Animal cachorro = new Animal("Bart", "666666666", "Doido");
+    private Animal[] animaisPublicados;
 
 
     @Dado("que já existem animais cadastrados")
     public void DeveriaTerAnimaisCadastrados() throws Exception {
-        String gatoJson = converterObjetoEmJson(gato);
+        Animal gato = new Animal("Fran", "829886645", "Muito Birrenta");
+        Animal cachorro = new Animal("Bart", "666666666", "Doido");
 
-        mockMvc.perform(post("/api/animais/publicar")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(gatoJson)
-                ).andExpect(status().isOk());
+        animaisPublicados = new Animal[] {gato, cachorro};
 
-        String dogJson = converterObjetoEmJson(cachorro);
-
-        mockMvc.perform(post("/api/animais/publicar")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(dogJson)
-                ).andExpect(status().isOk());
+        for (var animal : animaisPublicados) {
+            cadastrarAnimal(animal);
+        }
     }
 
     private MvcResult resultadoDaRequisicao;
@@ -49,17 +44,12 @@ public class ListarAnimais extends StepDefs{
     @Entao("Todos os animais deverão ser retornados")
     public void todosOsAnimaisDeveraoSerRetornados() throws UnsupportedEncodingException {
         String responseBody = resultadoDaRequisicao.getResponse().getContentAsString();
+        System.out.println(responseBody);
+        System.out.println();
+        System.out.println(Arrays.toString(animaisPublicados));
+        var animais = converterJson(responseBody, Animal[].class);
 
-        assertThat(responseBody).containsSubsequence(
-                gato.getNome(),
-                gato.getTelefone(),
-                gato.getDescricao()
-        );
-        assertThat(responseBody).containsSubsequence(
-                cachorro.getNome(),
-                cachorro.getTelefone(),
-                cachorro.getDescricao()
-        );
+        assertThat(animais).hasSameElementsAs(Arrays.asList(animaisPublicados));
     }
 
 }

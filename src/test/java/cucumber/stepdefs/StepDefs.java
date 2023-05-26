@@ -1,12 +1,22 @@
 package cucumber.stepdefs;
 
+import br.edu.facima.forum.model.Animal;
 import br.edu.facima.forum.model.Usuario;
+import br.edu.facima.forum.repository.AnimalRepository;
+import br.edu.facima.forum.repository.ComentarioRepository;
+import br.edu.facima.forum.repository.UsuarioRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.io.IOException;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -14,8 +24,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class StepDefs {
     @Autowired protected MockMvc mockMvc;
+
+    @Autowired ComentarioRepository comentarioRepository;
+    @Autowired AnimalRepository animalRepository;
+    @Autowired UsuarioRepository usuarioRepository;
     private final ObjectWriter jsonWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
-    protected Usuario usuarioLogado;
+    private final ObjectReader jsonReader = new ObjectMapper().configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true).reader();
 
     protected String converterObjetoEmJson(Object obj) {
         try {
@@ -24,6 +38,23 @@ public class StepDefs {
             throw new RuntimeException(e);
         }
     }
+
+    protected <T> T converterJson(String json, Class<T> type) {
+        try {
+            return jsonReader.readValue(json, type);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+//    protected <T> List<T> converterJsonArray(String json, Class<T> type) {
+//        try {
+//            return jsonReader.readValue(json);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+
     protected void cadastrarUsuario(Usuario usuario) throws Exception {
         String cadastroJson = converterObjetoEmJson(usuario);
 
@@ -46,12 +77,6 @@ public class StepDefs {
         mockMvc.perform(requestParaLogar)
                 .andDo(print());
     }
-    protected void cadastrarUsuarioELogar(String nome, String email, String senha, Long contato) throws Exception {
-        usuarioLogado = new Usuario(nome, email, senha);
-        usuarioLogado.setContato(contato);
-        cadastrarUsuario(usuarioLogado);
-        logarUsuario(usuarioLogado);
-    }
 
     protected void fazerUmaChamadaPost(String url, String conteudoJson) throws Exception {
         mockMvc.perform(post(url)
@@ -59,4 +84,17 @@ public class StepDefs {
                 .content(conteudoJson))
                 .andExpect(status().isOk());
     }
+
+    protected void esvaziarContexto() {
+        comentarioRepository.deleteAll();
+        usuarioRepository.deleteAll();
+        animalRepository.deleteAll();
+    }
+
+    protected void cadastrarAnimal(Animal animal) throws Exception {
+        String json = converterObjetoEmJson(animal);
+
+        fazerUmaChamadaPost("/api/animais/publicar", json);
+    }
+
 }

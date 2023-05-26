@@ -1,7 +1,10 @@
 package br.edu.facima.forum.services;
 
+import br.edu.facima.forum.model.Animal;
 import br.edu.facima.forum.model.Comentario;
+import br.edu.facima.forum.repository.AnimalRepository;
 import br.edu.facima.forum.repository.ComentarioRepository;
+import br.edu.facima.forum.services.impl.AnimalServiceImpl;
 import br.edu.facima.forum.services.impl.ComentarioServiceImpl;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -21,13 +24,12 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ComentarioServiceImplTest {
-
     @Mock
     ComentarioRepository comentarioRepository;
-
     @InjectMocks
     private ComentarioServiceImpl comentarioService;
-
+    @InjectMocks
+    private AnimalServiceImpl animalService;
     @Nested
     class AoComentar{
         @Test
@@ -58,6 +60,18 @@ public class ComentarioServiceImplTest {
 
             List<Comentario> comentarios = comentarioService.listarComentariosDoUsuario(email);
 
+            assertThat(comentarios).isEqualTo(comentariosEsperados);
+        }
+        @Test
+        public void deveriaListarComentariosDoAnimal(){
+            Animal animal = new Animal("toto", "8556", "cute");
+            animal.setId(1L);
+            List<Comentario> comentariosEsperados = new ArrayList<>();
+            comentariosEsperados.add(new Comentario());
+
+            when(comentarioRepository.findByAnimalId(animal.getId())).thenReturn(comentariosEsperados);
+
+            List<Comentario> comentarios = comentarioService.listarComentariosDoAnimal(animal.getId());
             assertThat(comentarios).isEqualTo(comentariosEsperados);
         }
     }

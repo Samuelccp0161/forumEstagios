@@ -3,6 +3,7 @@ package br.edu.facima.forum.controller;
 import br.edu.facima.forum.model.Animal;
 import br.edu.facima.forum.model.Comentario;
 import br.edu.facima.forum.services.AnimalService;
+import br.edu.facima.forum.services.ComentarioService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +23,8 @@ import static org.mockito.Mockito.when;
 public class AnimalControllerTest {
     @Mock
     AnimalService animalService;
+    @Mock
+    ComentarioService comentarioService;
     @InjectMocks
     AnimalController animalController;
 
@@ -55,7 +58,13 @@ public class AnimalControllerTest {
             List<Animal> animais = animalController.listar();
 
             assertThat(animais).isEqualTo(animaisEsperados);
+        }
+        @Test
+        public void deveriaDelegarListarComentariosParaOService(){
 
+            animalController.listarComentarios(0L);
+
+            verify(comentarioService).listarComentariosDoAnimal(0L);
         }
     }
 }

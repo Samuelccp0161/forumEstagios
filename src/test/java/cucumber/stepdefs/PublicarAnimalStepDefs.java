@@ -1,6 +1,8 @@
 package cucumber.stepdefs;
 
 import br.edu.facima.forum.model.Animal;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;

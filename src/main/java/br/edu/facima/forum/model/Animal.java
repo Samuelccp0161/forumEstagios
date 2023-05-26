@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ANIMAL")
@@ -59,7 +60,22 @@ public class Animal implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "{\"nome\":\"Fran\",\"telefone\":\"829886645\",\"descricao\":\"Muito Birrenta\"}";
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Animal animal = (Animal) o;
+
+        if (!Objects.equals(nome, animal.nome)) return false;
+        if (!Objects.equals(telefone, animal.telefone)) return false;
+        return Objects.equals(descricao, animal.descricao);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = nome != null ? nome.hashCode() : 0;
+        result = 31 * result + (telefone != null ? telefone.hashCode() : 0);
+        result = 31 * result + (descricao != null ? descricao.hashCode() : 0);
+        return result;
     }
 }
