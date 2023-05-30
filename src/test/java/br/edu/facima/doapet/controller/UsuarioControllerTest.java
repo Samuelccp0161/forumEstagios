@@ -41,10 +41,13 @@ class UsuarioControllerTest {
     class AoLogar {
         @Test
         public void delegarOLoginParaOService(){
+          var usuario = new Usuario();
+          usuario.setEmail("54321");
+          usuario.setSenha("12345");
 
-            usuarioController.logar("Kdash@gmail.com", "669");
+            usuarioController.logar(usuario);
 
-            verify(usuarioService).logar("Kdash@gmail.com", "669");
+            verify(usuarioService).logar(usuario.getEmail(), usuario.getSenha());
         }
     }
     @Nested

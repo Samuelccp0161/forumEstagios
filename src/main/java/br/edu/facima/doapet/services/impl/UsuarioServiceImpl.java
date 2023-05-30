@@ -1,5 +1,6 @@
 package br.edu.facima.forum.services.impl;
 
+import br.edu.facima.forum.exceptions.LoginException;
 import br.edu.facima.forum.exceptions.UsuarioJaExistenteException;
 import br.edu.facima.forum.model.Usuario;
 import br.edu.facima.forum.repository.UsuarioRepository;
@@ -30,13 +31,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void logar(String email, String senha) {
         Optional<Usuario> usuarioConsultado = usuarioRepository.findByEmail(email);
-        if (usuarioConsultado.isPresent()) {
-            Usuario usuario = usuarioConsultado.get();
 
-            if (usuario.getSenha().equals(senha)) {
-                usuarioLogado = usuarioConsultado;
-            }
-        }
+      if (usuarioConsultado.isPresent() && usuarioConsultado.get().getSenha().equals(senha)) {
+          usuarioLogado = usuarioConsultado;
+      } else {
+        throw new LoginException("Usuario ou senha invalido");
+      }
     }
 
     @Override
