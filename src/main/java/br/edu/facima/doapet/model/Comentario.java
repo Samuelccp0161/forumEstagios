@@ -1,11 +1,10 @@
-package br.edu.facima.forum.model;
+package br.edu.facima.doapet.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "COMENTARIO")

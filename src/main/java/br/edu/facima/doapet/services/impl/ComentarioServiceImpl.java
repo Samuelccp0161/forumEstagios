@@ -1,11 +1,10 @@
-package br.edu.facima.forum.services.impl;
+package br.edu.facima.doapet.services.impl;
 
-import br.edu.facima.forum.model.Comentario;
-import br.edu.facima.forum.repository.ComentarioRepository;
-import br.edu.facima.forum.services.ComentarioService;
+import br.edu.facima.doapet.model.Comentario;
+import br.edu.facima.doapet.repository.ComentarioRepository;
+import br.edu.facima.doapet.services.ComentarioService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

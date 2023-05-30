@@ -1,10 +1,7 @@
 package cucumber.stepdefs;
 
-import br.edu.facima.forum.model.Animal;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
+import br.edu.facima.doapet.model.Animal;
 import io.cucumber.java.pt.Dado;
-import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,7 +11,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 public class PublicarAnimalStepDefs extends StepDefs{

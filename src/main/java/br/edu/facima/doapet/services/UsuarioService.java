@@ -1,7 +1,7 @@
-package br.edu.facima.forum.services;
+package br.edu.facima.doapet.services;
 
-import br.edu.facima.forum.exceptions.UsuarioJaExistenteException;
-import br.edu.facima.forum.model.Usuario;
+import br.edu.facima.doapet.exceptions.UsuarioJaExistenteException;
+import br.edu.facima.doapet.model.Usuario;
 
 import java.util.Optional;
 

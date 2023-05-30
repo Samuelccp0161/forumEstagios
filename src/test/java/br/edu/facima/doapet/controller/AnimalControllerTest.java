@@ -1,9 +1,8 @@
-package br.edu.facima.forum.controller;
+package br.edu.facima.doapet.controller;
 
-import br.edu.facima.forum.model.Animal;
-import br.edu.facima.forum.model.Comentario;
-import br.edu.facima.forum.services.AnimalService;
-import br.edu.facima.forum.services.ComentarioService;
+import br.edu.facima.doapet.model.Animal;
+import br.edu.facima.doapet.services.AnimalService;
+import br.edu.facima.doapet.services.ComentarioService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

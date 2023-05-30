@@ -1,4 +1,4 @@
-package br.edu.facima.forum.model;
+package br.edu.facima.doapet.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;

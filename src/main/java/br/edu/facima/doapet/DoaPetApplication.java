@@ -1,13 +1,13 @@
-package br.edu.facima.forum;
+package br.edu.facima.doapet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ForumApplication {
+public class DoaPetApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ForumApplication.class, args);
+		SpringApplication.run(DoaPetApplication.class, args);
 	}
 
 }

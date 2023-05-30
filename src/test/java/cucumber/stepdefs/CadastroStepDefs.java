@@ -1,17 +1,13 @@
 package cucumber.stepdefs;
 
-import br.edu.facima.forum.model.Usuario;
-import br.edu.facima.forum.repository.UsuarioRepository;
+import br.edu.facima.doapet.model.Usuario;
+import br.edu.facima.doapet.repository.UsuarioRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import io.cucumber.java.Before;
 import io.cucumber.java.es.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.Example;
 import org.springframework.http.MediaType;
 
 import static org.assertj.core.api.Assertions.assertThat;

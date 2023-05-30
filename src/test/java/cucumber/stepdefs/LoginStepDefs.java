@@ -1,16 +1,9 @@
 package cucumber.stepdefs;
 
-import br.edu.facima.forum.controller.UsuarioController;
-import br.edu.facima.forum.model.Usuario;
-import br.edu.facima.forum.repository.UsuarioRepository;
-import br.edu.facima.forum.services.UsuarioService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import io.cucumber.java.Before;
+import br.edu.facima.doapet.model.Usuario;
 import io.cucumber.java.es.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
@@ -18,7 +11,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class LoginStepDefs extends StepDefs{
 

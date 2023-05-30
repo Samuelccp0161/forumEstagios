@@ -1,10 +1,10 @@
-package br.edu.facima.forum.controller;
+package br.edu.facima.doapet.controller;
 
-import br.edu.facima.forum.exceptions.UsuarioJaExistenteException;
-import br.edu.facima.forum.model.Comentario;
-import br.edu.facima.forum.model.Usuario;
-import br.edu.facima.forum.services.ComentarioService;
-import br.edu.facima.forum.services.UsuarioService;
+import br.edu.facima.doapet.exceptions.UsuarioJaExistenteException;
+import br.edu.facima.doapet.model.Comentario;
+import br.edu.facima.doapet.model.Usuario;
+import br.edu.facima.doapet.services.ComentarioService;
+import br.edu.facima.doapet.services.UsuarioService;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

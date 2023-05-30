@@ -1,10 +1,9 @@
-package br.edu.facima.forum.services;
+package br.edu.facima.doapet.services;
 
-import br.edu.facima.forum.exceptions.UsuarioJaExistenteException;
-import br.edu.facima.forum.model.Usuario;
-import br.edu.facima.forum.repository.UsuarioRepository;
-import br.edu.facima.forum.services.impl.UsuarioServiceImpl;
-import org.junit.jupiter.api.Assertions;
+import br.edu.facima.doapet.exceptions.UsuarioJaExistenteException;
+import br.edu.facima.doapet.model.Usuario;
+import br.edu.facima.doapet.repository.UsuarioRepository;
+import br.edu.facima.doapet.services.impl.UsuarioServiceImpl;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +15,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

@@ -1,12 +1,11 @@
 package cucumber.stepdefs;
 
-import br.edu.facima.forum.model.Animal;
-import br.edu.facima.forum.model.Usuario;
-import br.edu.facima.forum.repository.AnimalRepository;
-import br.edu.facima.forum.repository.ComentarioRepository;
-import br.edu.facima.forum.repository.UsuarioRepository;
+import br.edu.facima.doapet.model.Animal;
+import br.edu.facima.doapet.model.Usuario;
+import br.edu.facima.doapet.repository.AnimalRepository;
+import br.edu.facima.doapet.repository.ComentarioRepository;
+import br.edu.facima.doapet.repository.UsuarioRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -16,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

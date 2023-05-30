@@ -1,6 +1,6 @@
 package cucumber;
 
-import br.edu.facima.forum.ForumApplication;
+import br.edu.facima.doapet.DoaPetApplication;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import io.cucumber.spring.CucumberContextConfiguration;
@@ -15,6 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 @CucumberContextConfiguration
 @SpringBootTest
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = ForumApplication.class, loader = SpringBootContextLoader.class)
+@ContextConfiguration(classes = DoaPetApplication.class, loader = SpringBootContextLoader.class)
 public class CucumberIT {
 }

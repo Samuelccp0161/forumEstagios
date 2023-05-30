@@ -1,10 +1,9 @@
-package br.edu.facima.forum.services;
+package br.edu.facima.doapet.services;
 
-import br.edu.facima.forum.model.Animal;
-import br.edu.facima.forum.model.Comentario;
-import br.edu.facima.forum.repository.AnimalRepository;
-import br.edu.facima.forum.repository.ComentarioRepository;
-import br.edu.facima.forum.services.impl.AnimalServiceImpl;
+import br.edu.facima.doapet.model.Animal;
+import br.edu.facima.doapet.repository.AnimalRepository;
+import br.edu.facima.doapet.repository.ComentarioRepository;
+import br.edu.facima.doapet.services.impl.AnimalServiceImpl;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,10 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

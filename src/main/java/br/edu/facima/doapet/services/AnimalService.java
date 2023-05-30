@@ -1,7 +1,6 @@
-package br.edu.facima.forum.services;
+package br.edu.facima.doapet.services;
 
-import br.edu.facima.forum.model.Animal;
-import br.edu.facima.forum.model.Comentario;
+import br.edu.facima.doapet.model.Animal;
 
 import java.util.List;
 

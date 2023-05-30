@@ -1,11 +1,10 @@
 package cucumber.stepdefs;
 
-import br.edu.facima.forum.model.Animal;
-import br.edu.facima.forum.model.Comentario;
-import br.edu.facima.forum.model.Usuario;
-import br.edu.facima.forum.repository.AnimalRepository;
-import br.edu.facima.forum.repository.ComentarioRepository;
-import io.cucumber.java.After;
+import br.edu.facima.doapet.model.Animal;
+import br.edu.facima.doapet.model.Comentario;
+import br.edu.facima.doapet.model.Usuario;
+import br.edu.facima.doapet.repository.AnimalRepository;
+import br.edu.facima.doapet.repository.ComentarioRepository;
 import io.cucumber.java.Before;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
@@ -30,7 +29,7 @@ public class ComentarStepDefs extends StepDefs{
     ComentarioRepository comentarioRepository;
     @Autowired
     AnimalRepository animalRepository;
-    
+
     @Before
     public void afterCenario() {
         esvaziarContexto();
@@ -44,7 +43,7 @@ public class ComentarStepDefs extends StepDefs{
     }
 
     private Animal animal = new Animal("frajola", "333", "Alto");
-    
+
     @Dado("um animal publicado")
     public void UmAnimalPublicado() throws Exception {
         cadastrarAnimal(animal);
@@ -53,7 +52,7 @@ public class ComentarStepDefs extends StepDefs{
     }
 
     private Comentario comentarioSalvo;
-    
+
     @Quando("o usuario tentar deixar o comentario {string}")
     public void alguemQuererComentarSobreOAnimal(String mensagemComentario) throws Exception {
         comentarioSalvo = new Comentario(usuario.getEmail(),animal.getId(),mensagemComentario);
@@ -71,7 +70,7 @@ public class ComentarStepDefs extends StepDefs{
     public void este_comentario_deveria_ter_sido_salvo() {
         comentarioSalvo = comentarioRepository.findOne(Example.of(comentarioSalvo)).orElseThrow();
     }
-    
+
     @Entao("o comentario salvo deveria informar quem foi autor")
     public void o_comentario_salvo_deveria_informar_quem_foi_autor() {
         assertThat(comentarioSalvo.getAutorEmail()).isEqualTo(usuario.getEmail());
@@ -83,7 +82,7 @@ public class ComentarStepDefs extends StepDefs{
     }
 
     private Comentario[] comentariosPublicados;
-    
+
     @Dado("existem comentarios publicados")
     public void existemComentariosPublicados() throws Exception {
         Comentario comentario1 = new Comentario(usuario.getEmail(), animal.getId(), "hey");
@@ -113,7 +112,7 @@ public class ComentarStepDefs extends StepDefs{
                 .andExpect(status().isOk())
                 .andReturn();
     }
-    
+
     @Entao("Todos os comentarios do {} deverão ser retornados")
     public void todosOsComentariosDeverãoSerRetornados(String entity) throws UnsupportedEncodingException {
         List<Comentario> comentariosEsperados = switch (entity) {
@@ -125,7 +124,7 @@ public class ComentarStepDefs extends StepDefs{
         String responseBody = resultadoDaRequisicao.getResponse().getContentAsString();
 
         Comentario[] comentarios = converterJson(responseBody, Comentario[].class);
-        
+
         assertThat(comentarios).hasSameElementsAs(comentariosEsperados);
     }
 
