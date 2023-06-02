@@ -12,14 +12,17 @@ import io.cucumber.java.pt.Quando;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -62,7 +65,6 @@ public class ComentarStepDefs extends StepDefs{
 
     private void publicarComentario(Comentario comentario) throws Exception {
         String comentarioJson = converterObjetoEmJson(comentario);
-        System.out.println(comentarioJson);
         fazerUmaChamadaPost("/api/usuario/comentar", comentarioJson);
     }
 
@@ -139,4 +141,24 @@ public class ComentarStepDefs extends StepDefs{
                 .filter(c -> c.getAutorEmail().equals(usuario.getEmail()))
                 .collect(Collectors.toList());
     }
+    private Comentario comentarioParaDeletar;
+    @Dado("Um usuario comentanto")
+    public void umUsuarioComentanto() throws Exception {
+        comentarioParaDeletar = new Comentario(usuario.getEmail(), animal.getId(), "heyYo");
+        publicarComentario(comentarioParaDeletar);
+    }
+
+    @Quando("o usuario quiser deletar o comentario")
+    public void oUsuarioQuiserDeletarOComentario() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/usuario/comentarios/" + comentarioParaDeletar)
+                .content(comentarioParaDeletar.getAutorEmail()))
+                .andExpect(status().isOk())
+                .andReturn();
+        throw new io.cucumber.java.PendingException();
+    }
+    @Entao("o comentario Deveria ser deletado com sucesso")
+    public void oComentarioDeveriaSerDeletadoComSucesso() {
+        assertEquals(comentarioRepository.findOne(Example.of(comentarioParaDeletar)), Optional.empty());
+    }
+
 }
