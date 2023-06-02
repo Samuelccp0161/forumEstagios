@@ -51,7 +51,7 @@ class UsuarioControllerTest {
         }
     }
     @Nested
-    class aoComentar{
+    class AoComentar{
         @Test
         public void delegarOComentar(){
             Comentario comentario = new Comentario();
@@ -62,12 +62,21 @@ class UsuarioControllerTest {
         }
     }
     @Nested
-    class aoListarComentarios{
+    class AoListarComentarios{
         @Test
         public void deveriaDelegarParaOListarComentarios(){
             usuarioController.listarComentariosDoUsuario("");
 
             verify(comentarioService).listarComentariosDoUsuario("");
+        }
+    }
+    @Nested
+    class AoDeletarComentario{
+        @Test
+        public void deveriaDelegarParaODeletarComentario(){
+            usuarioController.deletar(1L);
+
+            verify(comentarioService).deletar(1L);
         }
     }
 }

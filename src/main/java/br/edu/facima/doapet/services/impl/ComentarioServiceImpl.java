@@ -28,4 +28,8 @@ public class ComentarioServiceImpl implements ComentarioService {
     public List<Comentario> listarComentariosDoAnimal(Long animalId) {
         return comentarioRepository.findByAnimalId(animalId);
     }
+    @Override
+    public void deletar(Long id) {
+        comentarioRepository.deleteById(id);
+    }
 }

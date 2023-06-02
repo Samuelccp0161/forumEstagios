@@ -10,15 +10,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.same;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ComentarioServiceImplTest {
@@ -26,8 +28,7 @@ public class ComentarioServiceImplTest {
     ComentarioRepository comentarioRepository;
     @InjectMocks
     private ComentarioServiceImpl comentarioService;
-    @InjectMocks
-    private AnimalServiceImpl animalService;
+
     @Nested
     class AoComentar{
         @Test
@@ -71,6 +72,15 @@ public class ComentarioServiceImplTest {
 
             List<Comentario> comentarios = comentarioService.listarComentariosDoAnimal(animal.getId());
             assertThat(comentarios).isEqualTo(comentariosEsperados);
+        }
+    }
+    @Nested
+    class AoDeletarComentario{
+        @Test
+        public void deveriaDeletarComentario(){
+            comentarioService.deletar(1L);
+
+            verify(comentarioRepository).deleteById(1L);
         }
     }
 }

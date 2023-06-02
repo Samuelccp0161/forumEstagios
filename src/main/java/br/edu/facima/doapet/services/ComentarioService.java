@@ -10,4 +10,6 @@ public interface ComentarioService {
     List<Comentario> listarComentariosDoUsuario(String email);
 
     List<Comentario> listarComentariosDoAnimal(Long animalId);
+
+    void deletar(Long id);
 }

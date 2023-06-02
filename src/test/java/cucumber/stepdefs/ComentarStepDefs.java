@@ -63,9 +63,10 @@ public class ComentarStepDefs extends StepDefs{
         publicarComentario(comentarioSalvo);
     }
 
-    private void publicarComentario(Comentario comentario) throws Exception {
+    private Comentario publicarComentario(Comentario comentario) throws Exception {
         String comentarioJson = converterObjetoEmJson(comentario);
         fazerUmaChamadaPost("/api/usuario/comentar", comentarioJson);
+        return comentarioRepository.findOne(Example.of(comentario)).orElseThrow();
     }
 
     @Entao("este comentario deveria ter sido salvo")
@@ -145,20 +146,20 @@ public class ComentarStepDefs extends StepDefs{
     @Dado("Um usuario comentanto")
     public void umUsuarioComentanto() throws Exception {
         comentarioParaDeletar = new Comentario(usuario.getEmail(), animal.getId(), "heyYo");
-        publicarComentario(comentarioParaDeletar);
+//        comentarioParaDeletar.setId(1L);
+        comentarioParaDeletar = publicarComentario(comentarioParaDeletar);
     }
 
     @Quando("o usuario quiser deletar o comentario")
     public void oUsuarioQuiserDeletarOComentario() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/usuario/comentarios/" + comentarioParaDeletar)
-                .content(comentarioParaDeletar.getAutorEmail()))
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/usuario/comentarios/" + comentarioParaDeletar.getId()))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
-        throw new io.cucumber.java.PendingException();
     }
     @Entao("o comentario Deveria ser deletado com sucesso")
     public void oComentarioDeveriaSerDeletadoComSucesso() {
-        assertEquals(comentarioRepository.findOne(Example.of(comentarioParaDeletar)), Optional.empty());
+        assertEquals(comentarioRepository.findById(comentarioParaDeletar.getId()), Optional.empty());
     }
 
 }
